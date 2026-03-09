@@ -44,6 +44,7 @@ nav button{
 #logo span{
     margin-left: 10px;
     font-family: 'Outfit';
+    font-style: bold;
 }
 
 /* MAIN */
@@ -62,6 +63,7 @@ nav button{
 }
 .hero h1, p{
     margin: 0px;
+    color: white;
 }
 #hero-text{
     margin-top: -70px;
@@ -83,6 +85,7 @@ nav button{
     background-color: #0F3B79;
     width: 150px;
     font-size: 16px;
+    color: white;
 }
 
 /* mini-catalog section */
@@ -103,10 +106,24 @@ nav button{
     display: flex;
     justify-content: space-between;
 }
-.catalog .container .card{
+.catalog .card{
     width: 350px;
     height: 500px;
     border: 2px solid white;
     border-radius: 30px;
     background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+}
+.catalog img{
+    border-radius: 50px;
+    height: 50%;
+    width: auto;
+
+}
+.catalog a{
+    margin-top: 10px;
+    color: lightgrey;
+    text-decoration: ;
 }
