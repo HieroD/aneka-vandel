@@ -44,9 +44,8 @@
         display: block;
         margin: 0 auto 15px;
         border-radius: 50%;
-        border: 3px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         background: white;
-        padding: 8px;
       }
 
       .title {
@@ -195,7 +194,7 @@
   <body>
     <div class="container">
       <div class="logo">
-        <img src="logo vandel.jpeg" alt="Logo" class="logo-image" />
+        <img src="./images/logo-vandel.png" alt="Logo" class="logo-image" />
       </div>
 
       <h1 class="title">Sign up</h1>
@@ -245,20 +244,23 @@
           />
         </div>
 
+        <div class="form-group">
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm your password"
+            required
+          />
+        </div>
+        
+
         <button type="submit" class="btn-primary">CREATE ACCOUNT</button>
       </form>
 
       <div class="divider">
         <span>or</span>
       </div>
-
-      <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        placeholder="Confirm your password"
-        required
-      />
 
       <script>
         const form = document.querySelector("form");
