@@ -415,7 +415,7 @@ nav button:hover {
 /* FOOTER */
 footer{
     background-color: #0F3B79;
-    min-height: 70px;
+    min-height: 100px;
     min-width: auto;
     color: white;
     display: flex;
