@@ -78,7 +78,7 @@ nav button:hover {
 /* MAIN */
 /* hero section */
 .hero{
-    background-image: linear-gradient(rgba(125, 125, 125, 0.568), rgba(0, 0, 0, 0.5)), url('../images/vandelmarmer.png');
+    background-image: linear-gradient(rgba(125, 125, 125, 0.568), rgba(0, 0, 0, 0.5)), url('../assets/vandelmarmer.png');
     background-blend-mode: multiply;
     background-color: #555; /* Fallback */
     background-repeat: no-repeat;
@@ -131,7 +131,7 @@ nav button:hover {
 .catalog{
     padding-top: 2%;
     padding-bottom: 5%;
-    background-image: url(../images/catalog-background.png);
+    background-image: url(../assets/catalog-background.png);
     height: 1000px;
     display: flex;
     flex-direction: column;
@@ -258,7 +258,7 @@ nav button:hover {
 .why .why-box{
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 70px;
     flex-wrap: wrap;
 }
 
@@ -274,10 +274,9 @@ nav button:hover {
 .why .container img {
     width: 70px;
     height: 70px;
-    margin-bottom: 20px;
     border-radius: 50%;
     background-color: #f0f5ff; /* Placeholder */
-    padding: 15px;
+    object-fit: cover;
 }
 
 .why .container h3 {
@@ -347,17 +346,15 @@ nav button:hover {
 }   
 
 .contact .container img {
-    background-color: gray; /* placeholder  */
-    width: 80px;
-    height: 80px;
+    width: 110x;
+    height: 110px;
+    margin-bottom: -20px;
     border-radius: 50%;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    object-fit: contain;
 }
 
 .contact .container h3 {
+    margin-top: 0;
     font-size: 24px;
     margin-bottom: 10px;
     color: #000;
@@ -424,4 +421,15 @@ footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+footer .sosmed {
+    display: flex;
+    gap: 10px;
+}
+footer img {
+    width: 30px;
+    height: 30px;
+    object-fit: fill;
+    cursor: pointer;
 }
