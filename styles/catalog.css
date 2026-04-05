@@ -76,7 +76,70 @@ nav button:hover {
 }
 
 /* MAIN */
+/* Catalog Section */
+.catalog{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-image: url(../assets/catalog-background.png);
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+.catalog h2 {
+    font-size: 60px;
+    text-align: center;
+}
+
+.catalog .pagination{
+    width: 45%;
+    height: 35px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.catalog .pagination button{
+    cursor: pointer;
+    color: #0F3B79;
+    font-weight: bold;
+    border: 1px solid #0F3B79;
+    border-radius: 20px;
+    background-color: white; 
+    width: 20%;
+    height: 100%;
+}
+
+.catalog .pagination button:hover{
+    color: white;
+    background-color: #0F3B79; 
+}
+
+.catalog .search {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.catalog #search-text {
+    padding: 0 10px;
+    height: 30px;
+    width: auto;
+    overflow: auto;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #0F3B79;
+}
+
+.catalog .search span{
+    color: #0a2752;
+} 
 
 /* FOOTER */
 footer{
