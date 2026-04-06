@@ -79,7 +79,7 @@ nav button:hover {
 /* MAIN */
 /* hero section */
 .hero{
-    background-image: linear-gradient(rgba(125, 125, 125, 0.568), rgba(0, 0, 0, 0.5)), url('../assets/vandelmarmer.png');
+    background-image: linear-gradient(rgba(125, 125, 125, 0.568), rgba(0, 0, 0, 0.5)), url('../public/assets/vandelmarmer.png');
     background-blend-mode: multiply;
     background-color: #555; /* Fallback */
     background-repeat: no-repeat;
@@ -132,7 +132,7 @@ nav button:hover {
 .catalog{
     padding-top: 2%;
     padding-bottom: 5%;
-    background-image: url(../assets/catalog-background.png);
+    background-image: url(../public/assets/catalog-background.png);
     height: 1000px;
     display: flex;
     flex-direction: column;
