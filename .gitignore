@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Production Build Artifacts
+public/css/output.css
+
+# Local Environment Variables
+.env
+*.local
