@@ -7,3 +7,6 @@ public/css/output.css
 # Local Environment Variables
 .env
 *.local
+
+# TODO List
+TODO.md
