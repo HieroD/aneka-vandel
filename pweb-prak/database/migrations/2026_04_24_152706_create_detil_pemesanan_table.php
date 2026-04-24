@@ -14,10 +14,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detil_pemesanan', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(Pemesanan::class)->constrained();
-            $table->foreignIdFor(Produk::class);
-            $table->primary(['pemesanan_id', 'produk_id']);
-            $table->integer('jumlah');
+            $table->foreignIdFor(Produk::class)->constrained();
+            $table->integer('jumlah')->default(1);
             $table->timestamps();
         });
     }
