@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_produk');
             $table->text('deskripsi');
+            $table->string('kategori');
             $table->integer('harga');
             $table->string('path_gambar');
             $table->timestamps();
