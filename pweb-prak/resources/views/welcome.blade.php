@@ -10,5 +10,23 @@
     <h1 class="text-3xl font-bold underline">
         Hello world!
     </h1>
+    @guest
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>      
+    @endguest
+    
+
+    @auth
+        <form action="/logout" method="post">
+            @method('delete')
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+
+        @if(session('success'))
+            <p>{{ session('success') }}</p>
+        @endif    
+    @endauth
+    
 </body>
 </html>
