@@ -11,5 +11,18 @@
         Hello world!
     </h1>
     <a href="/register">Register</a>
+    <a href="/login">Login</a>
+
+    <form action="/logout" method="post">
+    @csrf
+    @method('delete')
+    
+    <button type="submit">Logout</button>
+    </form>
+    
+
+    @if(session('success'))
+        <p>{{ session('success') }}</p>
+    @endif
 </body>
 </html>
