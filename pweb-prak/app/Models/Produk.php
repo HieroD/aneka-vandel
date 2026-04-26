@@ -14,11 +14,11 @@ class Produk extends Model
     {
         return $this->belongsToMany(
             Pemesanan::class,
-            'detil_pemesanan',   
+            'detil_pemesanan',
             'produk_id',         
             'pemesanan_id'       
         )
-        ->withPivot('jumlah')    
+        ->withPivot('jumlah')
         ->withTimestamps()  
         ->using(DetilPemesanan::class);
     }

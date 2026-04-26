@@ -6,7 +6,7 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('home');});
-Route::get('/catalog/{kategori}', [ProdukController::class, 'index']);
+Route::get('/home', function () {return view('about');});
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'create']);
@@ -19,3 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'delete']);
 });
 
+Route::get('/catalog/{kategori}', [ProdukController::class, 'index']);
+Route::get('/catalog/{id}', [ProdukController::class, 'show']);
+Route::get('/catalog/edit/{id}', [ProdukController::class, 'edit']);
+Route::patch('/catalog/update/{id}', [ProdukController::class, 'update']);
+Route::get('/catalog/create', [ProdukController::class, 'create']);
+Route::post('/catalog/store', [ProdukController::class, 'store']);
+Route::delete('/catalog/delete/{id}', [ProdukController::class, 'destroy']);
