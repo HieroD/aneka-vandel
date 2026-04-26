@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Pemesanan::class)->constrained();
             $table->foreignIdFor(Produk::class)->constrained();
-            $table->integer('total')->default(1);
+            $table->integer('jumlah')->default(1);
             $table->timestamps();
         });
     }
