@@ -14,6 +14,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('kategori');
             $table->integer('harga');
+            $table->integer('jumlah');
             $table->string('path_gambar');
             $table->timestamps();
         });
