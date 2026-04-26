@@ -21,6 +21,11 @@ class User extends Authenticatable
         return $this->HasMany(Pemesanan::class);
     }
 
+    public function isAdmin() 
+    {
+        return $this->role === 'admin';
+    }
+
 
     /**
      * @return array<string, string>
