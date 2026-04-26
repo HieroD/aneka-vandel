@@ -19,10 +19,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'delete']);
 });
 
+//admin
+Route::middleware(['can:admin'])->group(function () {
+    Route::get('/catalog/edit/{id}', [ProdukController::class, 'edit']);
+    Route::patch('/catalog/update/{id}', [ProdukController::class, 'update']);
+    Route::get('/catalog/create', [ProdukController::class, 'create']);
+    Route::post('/catalog/store', [ProdukController::class, 'store']);
+    Route::delete('/catalog/delete/{id}', [ProdukController::class, 'destroy']);
+});
+
 Route::get('/catalog/{kategori}', [ProdukController::class, 'index']);
 Route::get('/catalog/{id}', [ProdukController::class, 'show']);
-Route::get('/catalog/edit/{id}', [ProdukController::class, 'edit']);
-Route::patch('/catalog/update/{id}', [ProdukController::class, 'update']);
-Route::get('/catalog/create', [ProdukController::class, 'create']);
-Route::post('/catalog/store', [ProdukController::class, 'store']);
-Route::delete('/catalog/delete/{id}', [ProdukController::class, 'destroy']);
+
+

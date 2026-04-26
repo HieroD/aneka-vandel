@@ -19,6 +19,12 @@ class ProdukController extends Controller
         return view('product.catalog', compact('items'));
     }
 
+    public function show($id)
+    {
+        $product_id = $id;
+        return view('product.show', compact('product_id'));
+    }
+
     public function create()
     {
         return view('product.create');
@@ -43,12 +49,6 @@ class ProdukController extends Controller
         ]);
 
         return back()->with('success', 'Product created!');
-    }
-
-    public function show($id)
-    {
-        $product_id = $id;
-        return view('product.show', compact('product_id'));
     }
 
     public function edit($id)
