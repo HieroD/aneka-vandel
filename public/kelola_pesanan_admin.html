@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kelola Pesanan — Aneka Vandel</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f0f4f8;
+        min-height: 100vh;
+      }
+      .navbar {
+        background: #0f2d6b;
+        padding: 0 32px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      }
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+      .navbar-brand img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: contain;
+        background: white;
+      }
+      .navbar-brand span {
+        color: white;
+        font-weight: 700;
+        font-size: 17px;
+      }
+      .navbar-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .navbar-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .navbar-links a:hover {
+        color: white;
+      }
+      .btn-logout {
+        background: #e53e3e;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.2s;
+      }
+      .btn-logout:hover {
+        background: #c53030;
+      }
+      .layout {
+        display: flex;
+        min-height: calc(100vh - 64px);
+      }
+      .sidebar {
+        width: 200px;
+        background: white;
+        border-right: 1px solid #e2e8f0;
+        padding: 28px 0;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar-greeting {
+        padding: 0 20px 24px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .sidebar-greeting .hi {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1a202c;
+      }
+      .sidebar-greeting .sub {
+        font-size: 11px;
+        color: #718096;
+        margin-top: 2px;
+      }
+      .sidebar-menu {
+        padding: 16px 0;
+        flex: 1;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 20px;
+        color: #4a5568;
+        font-size: 13.5px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-family: "Poppins", sans-serif;
+      }
+      .sidebar-item:hover {
+        background: #f7fafc;
+        color: #0f2d6b;
+      }
+      .sidebar-item.active {
+        background: #ebf4ff;
+        color: #0f2d6b;
+        font-weight: 600;
+        border-right: 3px solid #0f2d6b;
+      }
+      .sidebar-item svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+      .sidebar-divider {
+        border: none;
+        border-top: 1px solid #e2e8f0;
+        margin: 8px 0;
+      }
+      .sidebar-logout {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 20px;
+        color: #e53e3e;
+        font-size: 13.5px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-family: "Poppins", sans-serif;
+      }
+      .sidebar-logout:hover {
+        background: #fff5f5;
+      }
+      .main {
+        flex: 1;
+        padding: 32px 36px;
+      }
+      .page-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 24px;
+      }
+      .filters {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      .search-input {
+        flex: 1;
+        min-width: 200px;
+        padding: 10px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: "Poppins", sans-serif;
+        color: #2d3748;
+        background: white;
+      }
+      .search-input:focus {
+        outline: none;
+        border-color: #0f2d6b;
+      }
+      .filter-select {
+        padding: 10px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: "Poppins", sans-serif;
+        color: #2d3748;
+        background: white;
+        cursor: pointer;
+      }
+      .filter-select:focus {
+        outline: none;
+        border-color: #0f2d6b;
+      }
+      .table-wrap {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      thead {
+        background: #f7fafc;
+      }
+      th {
+        text-align: left;
+        padding: 13px 16px;
+        color: #718096;
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      td {
+        padding: 14px 16px;
+        color: #2d3748;
+        border-bottom: 1px solid #f7fafc;
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: #f7fafc;
+      }
+      .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+      }
+      .badge.selesai {
+        background: #c6f6d5;
+        color: #276749;
+      }
+      .badge.dikirim {
+        background: #bee3f8;
+        color: #2b6cb0;
+      }
+      .badge.dikemas {
+        background: #feebc8;
+        color: #c05621;
+      }
+      .badge.menunggu {
+        background: #e2e8f0;
+        color: #4a5568;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        border: 1px solid #e2e8f0;
+        min-width: 160px;
+        z-index: 50;
+        overflow: hidden;
+        display: none;
+      }
+      .dropdown-menu.open {
+        display: block;
+      }
+      .dropdown-item {
+        padding: 9px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .dropdown-item:hover {
+        background: #f7fafc;
+      }
+      .action-btns {
+        display: flex;
+        gap: 6px;
+      }
+      .btn-action {
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+      }
+      .btn-detail {
+        background: #ebf4ff;
+        color: #0f2d6b;
+      }
+      .btn-detail:hover {
+        background: #bee3f8;
+      }
+      .btn-delete {
+        background: #fff5f5;
+        color: #e53e3e;
+      }
+      .btn-delete:hover {
+        background: #fed7d7;
+      }
+
+      /* Modal Detail */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: white;
+        border-radius: 14px;
+        padding: 28px 32px;
+        width: 480px;
+        max-width: 95vw;
+        transform: translateY(20px);
+        transition: transform 0.2s;
+      }
+      .modal-overlay.open .modal {
+        transform: translateY(0);
+      }
+      .modal-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 20px;
+      }
+      .modal-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f4f8;
+        font-size: 13px;
+      }
+      .modal-row:last-of-type {
+        border-bottom: none;
+      }
+      .modal-key {
+        color: #718096;
+        font-weight: 600;
+      }
+      .modal-val {
+        color: #2d3748;
+        font-weight: 500;
+        text-align: right;
+      }
+      .modal-close {
+        margin-top: 20px;
+        width: 100%;
+        padding: 11px;
+        background: #0f2d6b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+      }
+      .modal-close:hover {
+        background: #0a2255;
+      }
+      .toast {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-60px);
+        background: #111827;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-family: "Poppins", sans-serif;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.35s ease;
+        z-index: 999;
+      }
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+      footer {
+        background: #0f2d6b;
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        padding: 18px;
+        font-size: 12px;
+      }
+      .footer-sosmed {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+      .footer-sosmed span {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/logo-vandel.png" alt="Logo" />
+        <span>Aneka Vandel</span>
+      </a>
+      <div class="navbar-links">
+        <a href="about.html">About</a>
+        <a href="catalog.html">Catalog</a>
+        <button class="btn-logout" onclick="logout()">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+            <polyline points="16,17 21,12 16,7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          Log Out
+        </button>
+      </div>
+    </nav>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-greeting">
+          <div class="hi">Halo, <span id="adminName">Min</span>! 👋</div>
+          <div class="sub">Bagaimana kabarmu?</div>
+        </div>
+        <div class="sidebar-menu">
+          <a href="dashboard_admin.html" class="sidebar-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            Dashboard
+          </a>
+          <a href="profil_admin.html" class="sidebar-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Profil Admin
+          </a>
+          <a href="kelola_pesanan.html" class="sidebar-item active">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 01-8 0" />
+            </svg>
+            Kelola Pesanan
+          </a>
+          <a href="statistik.html" class="sidebar-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            Statistik
+          </a>
+          <hr class="sidebar-divider" />
+          <a href="catalog.html" class="sidebar-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              <polyline points="9,22 9,12 15,12 15,22" />
+            </svg>
+            Lihat Catalog
+          </a>
+        </div>
+        <button class="sidebar-logout" onclick="logout()">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="16"
+            height="16"
+          >
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+            <polyline points="16,17 21,12 16,7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          Keluar
+        </button>
+      </aside>
+
+      <main class="main">
+        <div class="page-title">Kelola Pesanan</div>
+        <div class="filters">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Cari pesanan..."
+            oninput="filterTable()"
+            id="searchInput"
+          />
+          <input
+            type="date"
+            class="filter-select"
+            id="dateFilter"
+            onchange="filterTable()"
+          />
+          <select
+            class="filter-select"
+            id="statusFilter"
+            onchange="filterTable()"
+          >
+            <option value="">Status: Semua</option>
+            <option value="selesai">Selesai</option>
+            <option value="dikirim">Dikirim</option>
+            <option value="dikemas">Dikemas</option>
+            <option value="menunggu">Menunggu Pembayaran</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table id="ordersTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Tanggal</th>
+                <th>Produk</th>
+                <th>Total Harga</th>
+                <th>Status Pesanan</th>
+                <th>ID Pelanggan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
+      <div class="modal">
+        <div class="modal-title">Detail Pesanan</div>
+        <div id="modalContent"></div>
+        <button
+          class="modal-close"
+          onclick="
+            document.getElementById('detailModal').classList.remove('open')
+          "
+        >
+          Tutup
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-sosmed">
+        <span
+          ><svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+            />
+            <circle cx="4" cy="4" r="2" /></svg
+        ></span>
+        <span
+          ><svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+            /></svg
+        ></span>
+        <span
+          ><svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="2"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none" /></svg
+        ></span>
+        <span
+          ><svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"
+            />
+            <polygon
+              points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"
+              fill="#0f2d6b"
+            /></svg
+        ></span>
+      </div>
+      <p>© 2026 Aneka Vandel. All rights reserved</p>
+    </footer>
+    <div class="toast" id="toast"></div>
+
+    <script>
+      if (sessionStorage.getItem("isLoggedIn") !== "true")
+        window.location.href = "login.html";
+      const email = sessionStorage.getItem("userEmail") || "";
+      const nameDisplay =
+        email !== "google-user" ? email.split("@")[0] : "Admin";
+      document.getElementById("adminName").textContent =
+        nameDisplay.charAt(0).toUpperCase() + nameDisplay.slice(1);
+
+      let orders = [
+        {
+          id: "AV-20260520-001",
+          date: "2026-05-20",
+          dateDisplay: "20 Mei 2026",
+          produk: "Vandel A - 50 Pcs",
+          harga: "Rp 750.000",
+          status: "selesai",
+          pelanggan: "U0001",
+          catatan: "Dikirim via JNE, sudah diterima.",
+        },
+        {
+          id: "AV-20260522-002",
+          date: "2026-05-22",
+          dateDisplay: "22 Mei 2026",
+          produk: "Vandel B - 10 Pcs",
+          harga: "Rp 150.000",
+          status: "dikirim",
+          pelanggan: "U0002",
+          catatan: "Dalam perjalanan ke Surabaya.",
+        },
+        {
+          id: "AV-20260525-003",
+          date: "2026-05-25",
+          dateDisplay: "25 Mei 2026",
+          produk: "Vandel C - 3 Pcs",
+          harga: "Rp 45.000",
+          status: "dikemas",
+          pelanggan: "U0002",
+          catatan: "Sedang dikemas oleh tim gudang.",
+        },
+        {
+          id: "AV-20260528-004",
+          date: "2026-05-28",
+          dateDisplay: "28 Mei 2026",
+          produk: "Kijangan",
+          harga: "Rp 1.200.000",
+          status: "menunggu",
+          pelanggan: "U0004",
+          catatan: "Menunggu konfirmasi pembayaran.",
+        },
+      ];
+
+      const statusLabel = {
+        selesai: "Selesai",
+        dikirim: "Dikirim",
+        dikemas: "Dikemas",
+        menunggu: "Menunggu Pembayaran",
+      };
+
+      function renderTable(data) {
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "";
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#a0aec0;padding:32px">Tidak ada pesanan ditemukan</td></tr>`;
+          return;
+        }
+        data.forEach((o, i) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+          <td style="font-weight:600">${o.id}</td>
+          <td>${o.dateDisplay}</td>
+          <td>${o.produk}</td>
+          <td style="font-weight:600">${o.harga}</td>
+          <td>
+            <div style="position:relative;display:inline-block">
+              <span class="badge ${o.status}" onclick="toggleDropdown(this, ${i})">${statusLabel[o.status]} ▾</span>
+              <div class="dropdown-menu" id="dd-${i}">
+                <div class="dropdown-item" style="color:#276749" onclick="changeStatus(${i},'selesai')">✓ Selesai</div>
+                <div class="dropdown-item" style="color:#2b6cb0" onclick="changeStatus(${i},'dikirim')">→ Dikirim</div>
+                <div class="dropdown-item" style="color:#c05621" onclick="changeStatus(${i},'dikemas')">📦 Dikemas</div>
+                <div class="dropdown-item" style="color:#4a5568" onclick="changeStatus(${i},'menunggu')">⏳ Menunggu</div>
+              </div>
+            </div>
+          </td>
+          <td>${o.pelanggan}</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action btn-detail" onclick="openDetail(${i})">Detail</button>
+              <button class="btn-action btn-delete" onclick="deleteOrder(${i})">Hapus</button>
+            </div>
+          </td>`;
+          tbody.appendChild(tr);
+        });
+      }
+
+      let filteredOrders = [...orders];
+
+      function filterTable() {
+        const q = document.getElementById("searchInput").value.toLowerCase();
+        const date = document.getElementById("dateFilter").value;
+        const status = document.getElementById("statusFilter").value;
+        filteredOrders = orders.filter((o) => {
+          const matchQ =
+            o.id.toLowerCase().includes(q) ||
+            o.produk.toLowerCase().includes(q) ||
+            o.pelanggan.toLowerCase().includes(q);
+          const matchDate = !date || o.date === date;
+          const matchStatus = !status || o.status === status;
+          return matchQ && matchDate && matchStatus;
+        });
+        renderTable(filteredOrders);
+      }
+
+      function toggleDropdown(el, i) {
+        document
+          .querySelectorAll(".dropdown-menu")
+          .forEach((d) => d.classList.remove("open"));
+        const dd = document.getElementById("dd-" + i);
+        dd.classList.toggle("open");
+        event.stopPropagation();
+      }
+      document.addEventListener("click", () =>
+        document
+          .querySelectorAll(".dropdown-menu")
+          .forEach((d) => d.classList.remove("open")),
+      );
+
+      function changeStatus(i, newStatus) {
+        const idx = orders.indexOf(filteredOrders[i]);
+        if (idx > -1) orders[idx].status = newStatus;
+        filteredOrders[i].status = newStatus;
+        renderTable(filteredOrders);
+        showToast("Status pesanan diperbarui!");
+      }
+
+      function openDetail(i) {
+        const o = filteredOrders[i];
+        document.getElementById("modalContent").innerHTML = `
+        <div class="modal-row"><span class="modal-key">Order ID</span><span class="modal-val">${o.id}</span></div>
+        <div class="modal-row"><span class="modal-key">Tanggal</span><span class="modal-val">${o.dateDisplay}</span></div>
+        <div class="modal-row"><span class="modal-key">Produk</span><span class="modal-val">${o.produk}</span></div>
+        <div class="modal-row"><span class="modal-key">Total Harga</span><span class="modal-val">${o.harga}</span></div>
+        <div class="modal-row"><span class="modal-key">Status</span><span class="modal-val"><span class="badge ${o.status}">${statusLabel[o.status]}</span></span></div>
+        <div class="modal-row"><span class="modal-key">ID Pelanggan</span><span class="modal-val">${o.pelanggan}</span></div>
+        <div class="modal-row"><span class="modal-key">Catatan</span><span class="modal-val">${o.catatan}</span></div>
+      `;
+        document.getElementById("detailModal").classList.add("open");
+      }
+
+      function closeModal(e) {
+        if (e.target === document.getElementById("detailModal"))
+          document.getElementById("detailModal").classList.remove("open");
+      }
+
+      function deleteOrder(i) {
+        if (!confirm("Hapus pesanan ini?")) return;
+        const idx = orders.indexOf(filteredOrders[i]);
+        if (idx > -1) orders.splice(idx, 1);
+        filteredOrders.splice(i, 1);
+        renderTable(filteredOrders);
+        showToast("Pesanan dihapus.");
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      function logout() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      renderTable(orders);
+    </script>
+  </body>
+</html>
