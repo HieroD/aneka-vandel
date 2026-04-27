@@ -1,0 +1,91 @@
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        @apply text-gray-800 bg-gray-100;
+    }
+}
+
+@layer components {
+
+    /*NAVBAR*/
+    .btn-logout {
+        @apply flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-full transition-colors duration-200;
+    }
+
+    /* SIDEBAR */
+    .sidebar-link {
+        @apply flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-600 transition-all duration-200;
+    }
+
+    .sidebar-link:hover {
+        @apply bg-white shadow-sm text-gray-800;
+    }
+
+    .sidebar-link.active {
+        @apply bg-white shadow-sm text-gray-800;
+    }
+
+    .sidebar-link.active svg {
+        @apply text-gray-700;
+    }
+
+    /*FORM INPUTS */
+    .form-input {
+        @apply w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+               transition-all duration-200;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-2;
+    }
+
+    /*BUTTONS*/
+    .btn-primary {
+        @apply bg-[#1e3a5f] hover:bg-[#16304f] text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200;
+    }
+
+    .btn-secondary {
+        @apply border border-gray-300 text-gray-600 hover:bg-gray-50 font-semibold px-6 py-3 rounded-lg transition-colors duration-200;
+    }
+
+    /*AVATAR */
+    .avatar-circle {
+        @apply w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden;
+    }
+
+    .avatar-placeholder svg {
+        @apply w-16 h-16 text-gray-400;
+    }
+
+    .btn-pilih-foto {
+        @apply cursor-pointer border border-gray-300 text-gray-600 hover:bg-gray-50
+               text-sm font-medium px-5 py-2 rounded-lg transition-colors duration-200;
+    }
+
+    /*FOOTER */
+    .social-icon {
+        @apply w-9 h-9 rounded-full border border-white/40 flex items-center justify-center
+               hover:bg-white/20 transition-colors duration-200 text-white;
+    }
+}
+
+@layer utilities {
+    /* Custom navy color utility */
+    .bg-navy {
+        background-color: #1e3a5f;
+    }
+
+    .text-navy {
+        color: #1e3a5f;
+    }
+
+    .border-navy {
+        border-color: #1e3a5f;
+    }
+}
