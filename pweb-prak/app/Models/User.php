@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,12 +17,12 @@ class User extends Authenticatable
     protected $guarded = [];
     protected $hidden = ['password', 'remember_token'];
 
-    public function pemesanan() : HasMany
+    public function orders() : HasMany
     {
-        return $this->HasMany(Pemesanan::class);
+        return $this->hasMany(Order::class);
     }
 
-    public function isAdmin() 
+    public function isAdmin()
     {
         return $this->role === 'admin';
     }
