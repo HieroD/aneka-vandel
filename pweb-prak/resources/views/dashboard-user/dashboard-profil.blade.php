@@ -1,36 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Saya - Aneka Vandel</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-
-    {{-- NAVBAR --}}
-    <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-14 h-14 rounded-full object-cover">
-                <span class="text-xl font-bold text-gray-800">Aneka Vandel</span>
-            </div>
-
-            <nav class="flex items-center gap-8">
-                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium transition">About</a>
-                <a href="#" class="text-gray-600 hover:text-gray-900 font-medium transition">Catalog</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn-logout">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
-                        </svg>
-                        Log Out
-                    </button>
-                </form>
-            </nav>
-        </div>
-    </header>
+<x-layout title="Profil Saya - Aneka Vandel">
 
     {{-- MAIN CONTENT --}}
     <div class="flex flex-1 max-w-7xl mx-auto w-full px-6 py-8 gap-6">
@@ -131,24 +99,4 @@
         </main>
     </div>
 
-    {{-- FOOTER --}}
-    <footer class="bg-navy text-white mt-auto">
-        <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <a href="#" class="social-icon">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-icon">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                    </svg>
-                </a>
-            </div>
-            <p class="text-sm text-white/70">© 2026 Aneka Vandel. All rights reserved</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+</x-layout>
