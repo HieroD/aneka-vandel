@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Product;
+use App\Models\ProductOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Pemesanan extends Model
+class Order extends Model
 {
     protected $guarded = [];
-    protected $table = 'pemesanan';
+    protected $table = 'orders';
 
     public function user() : BelongsTo
     {
@@ -17,17 +19,17 @@ class Pemesanan extends Model
     }
 
 
-    public function produk(): BelongsToMany
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(
-            Produk::class,
-            'detil_pemesanan',   
-            'pemesanan_id',   
-            'produk_id',    
+            Product::class,
+            'product_order',   
+            'order_id',   
+            'product_id',    
         )
-        ->withPivot('jumlah')    
+        ->withPivot('total_order')    
         ->withTimestamps()  
-        ->using(DetilPemesanan::class);
+        ->using(ProductOrder::class);
     }
 
     /**
@@ -36,9 +38,9 @@ class Pemesanan extends Model
     protected function casts(): array
     {
         return [
-            'tanggal_pemesanan' => 'date',
-            'tanggal_pengiriman' => 'date',
-            'tanggal_selesai' => 'date',
+            'order_date' => 'date',
+            'ship_date' => 'date',
+            'completion_date' => 'date',
         ];
     }
 }
