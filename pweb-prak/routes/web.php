@@ -6,7 +6,7 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('home');});
-Route::get('/home', function () {return view('about');});
+Route::get('/about', function () {return view('about');});
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'create']);
@@ -30,5 +30,8 @@ Route::middleware(['can:admin'])->group(function () {
 
 Route::get('/catalog/{kategori}', [ProdukController::class, 'index']);
 Route::get('/catalog/{id}', [ProdukController::class, 'show']);
+
+Route::view('/dashboard-pesanan', 'dashboard-user.dashboard-pesanan');
+Route::view('/dashboard-profil', 'dashboard-user.dashboard-profil');
 
 
