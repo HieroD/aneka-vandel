@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About - Aneka Vandel</title>
     <link rel="stylesheet" href="../styles/about.css" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
       .navbar-auth {
         display: flex;

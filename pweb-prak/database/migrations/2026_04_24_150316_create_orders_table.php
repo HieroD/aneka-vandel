@@ -9,19 +9,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('pemesanan', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->string('status');
-            $table->date('tanggal_pemesanan')->nullable();
-            $table->date('tanggal_pengiriman')->nullable();
-            $table->date('tanggal_selesai')->nullable();
+            $table->date('order_date')->nullable();
+            $table->date('ship_date')->nullable();
+            $table->date('completion_date')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('pemesanan');
+        Schema::dropIfExists('orders');
     }
 };

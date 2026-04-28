@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detil_pemesanan', function (Blueprint $table) {
+        Schema::create('product_order', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Pemesanan::class)->constrained();
             $table->foreignIdFor(Produk::class)->constrained();
-            $table->integer('total')->default(1);
+            $table->integer('total_order')->default(1);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detil_pemesanan');
+        Schema::dropIfExists('product_order');
     }
 };
