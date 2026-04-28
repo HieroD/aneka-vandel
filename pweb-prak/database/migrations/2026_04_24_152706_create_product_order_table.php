@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Order;
 use App\Models\Pemesanan;
+use App\Models\Product;
 use App\Models\Produk;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,9 +16,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_order', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Pemesanan::class)->constrained();
-            $table->foreignIdFor(Produk::class)->constrained();
+            $table->foreignIdFor(Order::class)->constrained();
+            $table->foreignIdFor(Product::class)->constrained();
             $table->integer('total_order')->default(1);
             $table->timestamps();
         });
