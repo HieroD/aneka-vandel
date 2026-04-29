@@ -6,19 +6,19 @@
         {{-- SIDEBAR --}}
         <aside class="w-60 shrink-0">
             <div class="mb-6">
-                <h2 class="text-lg font-bold text-gray-800">Halo, {{ auth()->user()->name ?? 'Azka' }}! 👋</h2>
+                <h2 class="text-lg font-bold text-gray-800">Halo, {{ auth()->user()->name ?? 'User' }}! 👋</h2>
                 <p class="text-sm text-gray-500">Bagaimana kabarmu?</p>
             </div>
 
             <nav class="flex flex-col gap-2">
-                <a href="{{ route('profile.index') }}" class="sidebar-link active">
+                <a href="" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 font-medium transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8 8 0 1118.88 6.196M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     Profil Saya
                 </a>
 
-                <a href="{{ route('orders.index') }}" class="sidebar-link">
+                <a href="" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 font-medium transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
@@ -26,8 +26,8 @@
                 </a>
             </nav>
 
-            <div class="mt-8">
-                <form method="POST" action="{{ route('logout') }}">
+            <div class="mt-2">
+                <form method="">
                     @csrf
                     <button type="submit" class="flex items-center gap-3 px-4 py-3 text-red-600 hover:text-red-700 font-medium transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,31 +46,40 @@
 
             <div class="flex gap-10">
                 {{-- Form Fields --}}
-                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="flex-1">
+                <form method="" enctype="multipart/form-data" class="flex-1">
                     @csrf
                     @method('PUT')
 
-                    <div class="mb-6">
-                        <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" id="name" name="name" value="{{ old('name', auth()->user()->name ?? 'Azka Danendra Cahya') }}" class="form-input">
+                    <div class="flex items-center gap-4 mb-5">
+                        <label for="name" class="w-36 shrink-0 text-sm font-medium text-gray-700">Nama Lengkap</label>
+                        <input type="text" id="name" name="name"
+                            value="{{ old('name', auth()->user()->name ?? '') }}"
+                            placeholder="Masukkan nama lengkap Anda"
+                            class="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300">
                         @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    <div class="mb-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email', auth()->user()->email ?? 'budi@email.com') }}" class="form-input">
+                    <div class="flex items-center gap-4 mb-5">
+                        <label for="email" class="w-36 shrink-0 text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email"
+                            value="{{ old('email', auth()->user()->email ?? '') }}"
+                            placeholder="contoh@email.com"
+                            class="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300">
                         @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    <div class="mb-8">
-                        <label for="phone" class="form-label">Nomor Telepon</label>
-                        <input type="tel" id="phone" name="phone" value="{{ old('phone', auth()->user()->phone ?? '081234567890') }}" class="form-input">
+                    <div class="flex items-center gap-4 mb-8">
+                        <label for="phone" class="w-36 shrink-0 text-sm font-medium text-gray-700">Nomor Telepon</label>
+                        <input type="tel" id="phone" name="phone"
+                            value="{{ old('phone', auth()->user()->phone ?? '') }}"
+                            placeholder="08xxxxxxxxxx"
+                            class="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300">
                         @error('phone') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <button type="submit" class="btn-primary">Simpan Perubahan</button>
-                        <a href="{{ url()->previous() }}" class="btn-secondary">Batal</a>
+                        <button type="submit" class="text-blue-600 font-medium text-sm hover:text-blue-700 transition">Simpan Perubahan</button>
+                        <a href="{{ url()->previous() }}" class="text-red-500 font-medium text-sm hover:text-red-600 transition">Batal</a>
                     </div>
                 </form>
 
@@ -89,7 +98,7 @@
                         @endif
                     </div>
 
-                    <form method="POST" action="{{ route('profile.avatar') }}" enctype="multipart/form-data" id="avatar-form">
+                    <form method="">
                         @csrf
                         <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*" onchange="document.getElementById('avatar-form').submit()">
                         <label for="avatar-input" class="btn-pilih-foto">Pilih Foto</label>
