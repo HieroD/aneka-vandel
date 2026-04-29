@@ -1,8 +1,4 @@
-@extends('layouts.admin')
-
-@section('title', 'Profil Admin')
-
-@push('styles')
+\@extends('admin_layout')
 <style>
   .page-title {
     font-size: 22px;
@@ -61,7 +57,6 @@
     cursor: not-allowed;
   }
 
-  /* Buat class khusus untuk kondisi error */
   .is-invalid {
     border-color: #e53e3e !important;
   }

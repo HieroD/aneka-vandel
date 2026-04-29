@@ -1,8 +1,4 @@
-@extends('layouts.admin')
-
-@section('title', 'Kelola Pesanan')
-
-@push('styles')
+@extends('admin_layout')
 <style>
   .page-title {
     font-size: 22px;
@@ -11,7 +7,6 @@
     margin-bottom: 24px;
   }
 
-  /* ── Filter Bar ── */
   .filter-bar {
     display: flex;
     gap: 12px;
@@ -252,7 +247,6 @@
       </svg>
       <select name="tanggal" onchange="document.getElementById('filterForm').submit()">
         <option value="">Pilih Tanggal</option>
-        {{-- Route: TODO - populate dari data pesanan --}}
       </select>
     </div>
 
@@ -349,7 +343,7 @@
   // Update status via form submit
   function updateStatus(id, status) {
     const form = document.getElementById('statusForm');
-    // Route: TODO - ganti '#' dengan route('admin.pesanan.status', id)
+
     form.action = `/admin/pesanan/${id}/status`;
     document.getElementById('statusInput').value = status;
     form.submit();

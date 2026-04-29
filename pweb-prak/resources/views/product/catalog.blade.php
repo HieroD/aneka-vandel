@@ -1,11 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Catalog - Aneka Vandel')
-
-@push('styles')
 <link rel="stylesheet" href="{{ asset('styles/catalog.css') }}" />
 <style>
-  /* ── Navbar auth area ── */
   .navbar-auth {
     display: flex;
     align-items: center;

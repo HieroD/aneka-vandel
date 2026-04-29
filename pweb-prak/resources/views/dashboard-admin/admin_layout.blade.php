@@ -255,7 +255,7 @@
             </div>
 
             <nav class="sidebar-nav">
-                {{-- Route: TODO - tambahkan route admin.profil --}}
+
                 <a href="#"
                     class="sidebar-link {{ request()->routeIs('admin.profil') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -265,7 +265,7 @@
                     Profil Admin
                 </a>
 
-                {{-- Route: TODO - tambahkan route admin.pesanan --}}
+
                 <a href="#"
                     class="sidebar-link {{ request()->routeIs('admin.pesanan') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -275,7 +275,7 @@
                     Kelola Pesanan
                 </a>
 
-                {{-- Route: TODO - tambahkan route admin.statistik --}}
+
                 <a href="#"
                     class="sidebar-link {{ request()->routeIs('admin.statistik') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
