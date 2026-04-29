@@ -12,7 +12,7 @@
             </div>
 
             <nav class="flex flex-col gap-2">
-                <a href="{{ route('profile.index') }}"
+                <a href=""
                     class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -22,7 +22,7 @@
                     Profil Saya
                 </a>
 
-                <a href="{{ route('orders.index') }}"
+                <a href=""
                     class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-800 bg-white shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -35,7 +35,7 @@
 
             {{-- Keluar --}}
             <div class="mt-8">
-                <form method="POST" action="{{ route('logout') }}">
+                <form method=""
                     @csrf
                     <button type="submit"
                         class="flex items-center gap-3 px-4 py-3 text-red-600 hover:text-red-700 font-medium transition">
