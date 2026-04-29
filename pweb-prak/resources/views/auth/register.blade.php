@@ -1,454 +1,308 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up — Vandel</title>
 
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — Vandel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #0f2d6b;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: #163070;
+      border: 1.5px dashed rgba(255, 255, 255, 0.25);
+      border-radius: 16px;
+      padding: 38px 32px;
+      width: 100%;
+      max-width: 400px;
+      animation: fadeUp 0.45s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: #0f2d6b;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
-      .card {
-        background: #163070;
-        border: 1.5px dashed rgba(255, 255, 255, 0.25);
-        border-radius: 16px;
-        padding: 38px 32px;
-        width: 100%;
-        max-width: 400px;
-        animation: fadeUp 0.45s ease;
-      }
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .logo-wrap {
-        text-align: center;
-        margin-bottom: 12px;
-      }
-      .logo-img {
-        width: 72px;
-        height: 72px;
-        border-radius: 50%;
-        object-fit: contain;
-        background: white;
-        border: 1.5px solid rgba(255, 255, 255, 0.2);
-        display: block;
-        margin: 0 auto;
-      }
-      h1 {
-        color: white;
-        font-size: 24px;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 26px;
-      }
-      .name-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-      label {
-        display: block;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.9px;
-        text-transform: uppercase;
-        margin-bottom: 7px;
-      }
-      .input-wrap {
-        position: relative;
-      }
-      input {
-        width: 100%;
-        padding: 13px 16px;
-        border: 1.5px solid transparent;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.93);
-        font-size: 14px;
-        font-family: "Poppins", sans-serif;
-        color: #222;
-        transition: all 0.25s;
-      }
-      input:focus {
-        outline: none;
-        background: white;
-        border-color: rgba(255, 255, 255, 0.45);
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
-      }
-      input::placeholder {
-        color: #aaa;
-        font-size: 13px;
-      }
-      input.error {
-        border-color: #ff7070;
-      }
-      .eye-btn {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: #888;
-        display: flex;
-        align-items: center;
-        padding: 4px;
-      }
-      .eye-btn svg {
-        width: 17px;
-        height: 17px;
-      }
-      .error-msg {
-        color: #ffaaaa;
-        font-size: 11px;
-        margin-top: 5px;
-        display: none;
-      }
-      .error-msg.show {
-        display: block;
-      }
-      .btn-primary {
-        width: 100%;
-        padding: 14px;
-        background: #111827;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 700;
-        font-family: "Poppins", sans-serif;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.25s;
-        margin-top: 6px;
-      }
-      .btn-primary:hover {
-        background: #0a0f1a;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-      }
-      .btn-primary:active {
+
+      to {
+        opacity: 1;
         transform: translateY(0);
       }
-      .divider {
-        display: flex;
-        align-items: center;
-        margin: 20px 0;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 12px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-      .divider::before,
-      .divider::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .divider span {
-        padding: 0 12px;
-      }
-      .btn-google {
-        width: 100%;
-        padding: 13px;
-        background: #111827;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        font-family: "Poppins", sans-serif;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        transition: all 0.25s;
-      }
-      .btn-google:hover {
-        background: #0a0f1a;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-      }
-      .footer {
-        text-align: center;
-        margin-top: 22px;
-        color: rgba(255, 255, 255, 0.55);
-        font-size: 13px;
-      }
-      .footer a {
-        color: white;
-        font-weight: 600;
-        text-decoration: none;
-      }
-      .footer a:hover {
-        text-decoration: underline;
-      }
-      .nav-links {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-        margin-top: 18px;
-        padding-top: 16px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .nav-links a {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 12px;
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .nav-links a:hover {
-        color: white;
-      }
-      .toast {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%) translateY(-60px);
-        background: #111827;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 13px;
-        font-family: "Poppins", sans-serif;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.35s ease;
-        z-index: 999;
-      }
-      .toast.show {
-        transform: translateX(-50%) translateY(0);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <div class="logo-wrap">
-        <img
-          src="./assets/logo-vandel.png"
-          alt="Vandel Logo"
-          class="logo-img"
-        />
-      </div>
+    }
 
-      <h1>Sign up</h1>
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .logo-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      display: block;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid transparent;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.93);
+      font-size: 14px;
+      color: #222;
+      transition: all 0.25s;
+    }
+
+    input:focus {
+      outline: none;
+      background: white;
+      border-color: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+    }
+
+    input.error {
+      border-color: #ff7070;
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #888;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: #111827;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 6px;
+    }
+
+    .btn-primary:hover {
+      background: #0a0f1a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .divider span {
+      padding: 0 12px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .error-msg {
+      color: #ffaaaa;
+      font-size: 11px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="logo-wrap">
+      <img src="{{ asset('assets/logo-vandel.png') }}" alt="Logo" class="logo-img" />
+    </div>
+
+    <h1>Sign up</h1>
+
+    <form action="{{ route('register.store') }}" method="POST" id="registerForm">
+      @csrf
 
       <div class="name-row">
         <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input
-            type="text"
-            id="firstName"
-            placeholder="First name"
-            autocomplete="given-name"
-          />
+          <label for="first_name">First Name</label>
+          <input type="text" id="first_name" name="first_name" placeholder="First name"
+            value="{{ old('first_name') }}" class="{{ $errors->has('first_name') ? 'error' : '' }}" required />
+          @error('first_name')
+          <div class="error-msg">{{ $message }}</div>
+          @enderror
         </div>
         <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input
-            type="text"
-            id="lastName"
-            placeholder="Last name"
-            autocomplete="family-name"
-          />
+          <label for="last_name">Last Name</label>
+          <input type="text" id="last_name" name="last_name" placeholder="Last name"
+            value="{{ old('last_name') }}" class="{{ $errors->has('last_name') ? 'error' : '' }}" required />
+          @error('last_name')
+          <div class="error-msg">{{ $message }}</div>
+          @enderror
         </div>
       </div>
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email"
-          autocomplete="email"
-        />
-        <div class="error-msg" id="emailErr">Format email tidak valid</div>
+        <input type="email" id="email" name="email" placeholder="Enter your email"
+          value="{{ old('email') }}" class="{{ $errors->has('email') ? 'error' : '' }}" required />
+        @error('email')
+        <div class="error-msg">{{ $message }}</div>
+        @enderror
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
         <div class="input-wrap">
-          <input
-            type="password"
-            id="password"
-            placeholder="Create password"
-            autocomplete="new-password"
-            style="padding-right: 42px"
-          />
-          <button
-            class="eye-btn"
-            type="button"
-            onclick="togglePass('password', this)"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
+          <input type="password" id="password" name="password" placeholder="Create password"
+            style="padding-right: 42px" class="{{ $errors->has('password') ? 'error' : '' }}" required />
+          <button class="eye-btn" type="button" onclick="togglePass('password', this)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
           </button>
         </div>
-        <div class="error-msg" id="passErr">Password minimal 8 karakter</div>
+        @error('password')
+        <div class="error-msg">{{ $message }}</div>
+        @enderror
       </div>
 
       <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
+        <label for="password_confirmation">Confirm Password</label>
         <div class="input-wrap">
-          <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm password"
-            autocomplete="new-password"
-            style="padding-right: 42px"
-          />
-          <button
-            class="eye-btn"
-            type="button"
-            onclick="togglePass('confirmPassword', this)"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
+          <input type="password" id="password_confirmation" name="password_confirmation"
+            placeholder="Confirm password" style="padding-right: 42px" required />
+          <button class="eye-btn" type="button" onclick="togglePass('password_confirmation', this)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
           </button>
         </div>
-        <div class="error-msg" id="confirmErr">Password tidak cocok</div>
       </div>
 
-      <button class="btn-primary" onclick="handleRegister()">
-        Create Account
-      </button>
+      <button type="submit" class="btn-primary">Create Account</button>
+    </form>
 
-      <div class="divider"><span>or continue with</span></div>
+    <div class="divider"><span>Help & Navigation</span></div>
 
-      <button class="btn-google" onclick="registerWithGoogle()">
-        <svg width="18" height="18" viewBox="0 0 24 24">
-          <path
-            fill="#4285F4"
-            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-          />
-          <path
-            fill="#34A853"
-            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-          />
-          <path
-            fill="#FBBC05"
-            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-          />
-          <path
-            fill="#EA4335"
-            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-          />
-        </svg>
-        Google
-      </button>
-
-      <div class="footer">
-        Already have an account? <a href="login.html">Sign in</a>
-      </div>
-
-      <div class="nav-links">
-        <a href="about.html">About</a>
-        <a href="catalog.html">Catalog</a>
-      </div>
+    <div class="footer">
+      Already have an account? <a href="{{ route('login') }}">Sign in</a>
     </div>
 
-    <div class="toast" id="toast"></div>
+    <div class="nav-links">
+      <a href="{{ route('about') }}">About</a>
+      <a href="{{ route('catalog.index', ['kategori' => 'all']) }}">Catalog</a>
+    </div>
+  </div>
 
-    <script>
-      function togglePass(id, btn) {
-        const inp = document.getElementById(id);
-        const isText = inp.type === "text";
-        inp.type = isText ? "password" : "text";
-        btn.querySelector("svg").innerHTML = isText
-          ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
-          : '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-      }
+  <script>
+    function togglePass(id, btn) {
+      const inp = document.getElementById(id);
+      const isText = inp.type === "text";
+      inp.type = isText ? "password" : "text";
+      btn.querySelector("svg").innerHTML = isText ?
+        '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>' :
+        '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    }
+  </script>
+</body>
 
-      function handleRegister() {
-        let ok = true;
-        const fn = document.getElementById("firstName");
-        const ln = document.getElementById("lastName");
-        const em = document.getElementById("email");
-        const pw = document.getElementById("password");
-        const cp = document.getElementById("confirmPassword");
-
-        [fn, ln, em, pw, cp].forEach((el) => el.classList.remove("error"));
-        document
-          .querySelectorAll(".error-msg")
-          .forEach((e) => e.classList.remove("show"));
-
-        if (!fn.value.trim()) {
-          fn.classList.add("error");
-          ok = false;
-        }
-        if (!ln.value.trim()) {
-          ln.classList.add("error");
-          ok = false;
-        }
-        if (!em.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-          em.classList.add("error");
-          document.getElementById("emailErr").classList.add("show");
-          ok = false;
-        }
-        if (pw.value.length < 8) {
-          pw.classList.add("error");
-          document.getElementById("passErr").classList.add("show");
-          ok = false;
-        }
-        if (cp.value !== pw.value) {
-          cp.classList.add("error");
-          document.getElementById("confirmErr").classList.add("show");
-          ok = false;
-        }
-        if (ok) {
-          sessionStorage.setItem("pendingEmail", em.value);
-          sessionStorage.setItem("pendingName", fn.value + " " + ln.value);
-          window.location.href = "verify-email.html";
-        }
-      }
-
-      function registerWithGoogle() {
-        sessionStorage.setItem("isLoggedIn", "true");
-        sessionStorage.setItem("userEmail", "google-user");
-        window.location.href = "catalog.html";
-      }
-    </script>
-  </body>
 </html>

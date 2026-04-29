@@ -62,8 +62,7 @@
                         type="text"
                         placeholder="Cari pesanan..."
                         class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-600
-                               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    >
+                               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                 </div>
 
                 {{-- Date Picker --}}
@@ -119,67 +118,67 @@
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         @forelse($orders ?? [] as $order)
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 font-medium text-gray-800">{{ $order->order_id }}</td>
-                                <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($order->tanggal)->translatedFormat('d M Y') }}</td>
-                                <td class="px-6 py-4 text-gray-600">{{ $order->produk }}</td>
-                                <td class="px-6 py-4 text-gray-600">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
-                                <td class="px-6 py-4">
-                                    @php
-                                        $statusClass = match($order->status) {
-                                            'selesai'  => 'badge-selesai',
-                                            'dikirim'  => 'badge-dikirim',
-                                            'dikemas'  => 'badge-dikemas',
-                                            default    => 'badge-menunggu',
-                                        };
-                                        $statusLabel = match($order->status) {
-                                            'selesai'  => 'Selesai',
-                                            'dikirim'  => 'Dikirim',
-                                            'dikemas'  => 'Dikemas',
-                                            default    => 'Menunggu Pembayaran',
-                                        };
-                                    @endphp
-                                    <span class="order-badge {{ $statusClass }}">{{ $statusLabel }}</span>
-                                </td>
-                            </tr>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-800">{{ $order->order_id }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($order->tanggal)->translatedFormat('d M Y') }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ $order->produk }}</td>
+                            <td class="px-6 py-4 text-gray-600">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
+                            <td class="px-6 py-4">
+                                @php
+                                $statusClass = match($order->status) {
+                                'selesai' => 'badge-selesai',
+                                'dikirim' => 'badge-dikirim',
+                                'dikemas' => 'badge-dikemas',
+                                default => 'badge-menunggu',
+                                };
+                                $statusLabel = match($order->status) {
+                                'selesai' => 'Selesai',
+                                'dikirim' => 'Dikirim',
+                                'dikemas' => 'Dikemas',
+                                default => 'Menunggu Pembayaran',
+                                };
+                                @endphp
+                                <span class="order-badge {{ $statusClass }}">{{ $statusLabel }}</span>
+                            </td>
+                        </tr>
                         @empty
-                            {{-- Static dummy rows for display / development --}}
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 font-medium text-gray-800">AV-20260520-001</td>
-                                <td class="px-6 py-4 text-gray-600">20 Mei 2026</td>
-                                <td class="px-6 py-4 text-gray-600">Vandel A - 50 Pcs</td>
-                                <td class="px-6 py-4 text-gray-600">Rp 750.000</td>
-                                <td class="px-6 py-4">
-                                    <span class="order-badge badge-selesai">Selesai</span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 font-medium text-gray-800">AV-20260522-002</td>
-                                <td class="px-6 py-4 text-gray-600">22 Mei 2026</td>
-                                <td class="px-6 py-4 text-gray-600">Vandel B - 10 Pcs</td>
-                                <td class="px-6 py-4 text-gray-600">Rp 150.000</td>
-                                <td class="px-6 py-4">
-                                    <span class="order-badge badge-dikirim">Dikirim</span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 font-medium text-gray-800">AV-20260525-003</td>
-                                <td class="px-6 py-4 text-gray-600">25 Mei 2026</td>
-                                <td class="px-6 py-4 text-gray-600">Vandel C - 3 Pcs</td>
-                                <td class="px-6 py-4 text-gray-600">Rp 45.000</td>
-                                <td class="px-6 py-4">
-                                    <span class="order-badge badge-dikemas">Dikemas</span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 font-medium text-gray-800">AV-20260528-004</td>
-                                <td class="px-6 py-4 text-gray-600">28 Mei 2026</td>
-                                <td class="px-6 py-4 text-gray-600">Kijangan</td>
-                                <td class="px-6 py-4 text-gray-600">Rp 1.200.000</td>
-                                <td class="px-6 py-4">
-                                    <span class="order-badge badge-menunggu">Menunggu Pembayaran</span>
-                                </td>
-                            </tr>
+                        {{-- Static dummy rows for display / development --}}
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-800">AV-20260520-001</td>
+                            <td class="px-6 py-4 text-gray-600">20 Mei 2026</td>
+                            <td class="px-6 py-4 text-gray-600">Vandel A - 50 Pcs</td>
+                            <td class="px-6 py-4 text-gray-600">Rp 750.000</td>
+                            <td class="px-6 py-4">
+                                <span class="order-badge badge-selesai">Selesai</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-800">AV-20260522-002</td>
+                            <td class="px-6 py-4 text-gray-600">22 Mei 2026</td>
+                            <td class="px-6 py-4 text-gray-600">Vandel B - 10 Pcs</td>
+                            <td class="px-6 py-4 text-gray-600">Rp 150.000</td>
+                            <td class="px-6 py-4">
+                                <span class="order-badge badge-dikirim">Dikirim</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-800">AV-20260525-003</td>
+                            <td class="px-6 py-4 text-gray-600">25 Mei 2026</td>
+                            <td class="px-6 py-4 text-gray-600">Vandel C - 3 Pcs</td>
+                            <td class="px-6 py-4 text-gray-600">Rp 45.000</td>
+                            <td class="px-6 py-4">
+                                <span class="order-badge badge-dikemas">Dikemas</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-800">AV-20260528-004</td>
+                            <td class="px-6 py-4 text-gray-600">28 Mei 2026</td>
+                            <td class="px-6 py-4 text-gray-600">Kijangan</td>
+                            <td class="px-6 py-4 text-gray-600">Rp 1.200.000</td>
+                            <td class="px-6 py-4">
+                                <span class="order-badge badge-menunggu">Menunggu Pembayaran</span>
+                            </td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
