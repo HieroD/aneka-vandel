@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -29,12 +29,12 @@ Route::middleware('auth')->group(function () {
 
 // Admin 
 Route::middleware(['can:admin'])->group(function () {
-    Route::get('/catalog/create', [ProdukController::class, 'create'])->name('catalog.create');
-    Route::post('/catalog/store', [ProdukController::class, 'store'])->name('catalog.store');
-    Route::get('/catalog/edit/{id}', [ProdukController::class, 'edit'])->name('catalog.edit');
-    Route::patch('/catalog/update/{id}', [ProdukController::class, 'update'])->name('catalog.update');
-    Route::delete('/catalog/delete/{id}', [ProdukController::class, 'destroy'])->name('catalog.destroy');
+    Route::get('/catalog/create', [ProductController::class, 'create'])->name('catalog.create');
+    Route::post('/catalog/store', [ProductController::class, 'store'])->name('catalog.store');
+    Route::get('/catalog/edit/{id}', [ProductController::class, 'edit'])->name('catalog.edit');
+    Route::patch('/catalog/update/{id}', [ProductController::class, 'update'])->name('catalog.update');
+    Route::delete('/catalog/delete/{id}', [ProductController::class, 'destroy'])->name('catalog.destroy');
 });
 
-Route::get('/catalog/{kategori}', [ProdukController::class, 'index'])->name('catalog.index');
-Route::get('/catalog/show/{id}', [ProdukController::class, 'show'])->name('catalog.show');
+Route::get('/catalog/{kategori}', [ProductController::class, 'index'])->name('catalog.index');
+Route::get('/catalog/show/{id}', [ProductController::class, 'show'])->name('catalog.show');

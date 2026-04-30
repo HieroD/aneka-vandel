@@ -27,7 +27,7 @@
             </div>
             <div id="navbar">
                 <a href="/about" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">About</a>
-                <a href="/catalog" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Catalog</a>
+                <a href="{{ route('catalog.index', ['kategori' => 'all']) }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Catalog</a>
                 <a href="/login"><button class="py-2 px-6.25 ml-3.75 rounded-full border-none cursor-pointer text-white font-normal text-[16px] bg-primary hover:bg-primary-hover transition-colors">Sign in</button></a>
             </div>
         </nav>

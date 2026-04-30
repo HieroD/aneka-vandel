@@ -1,223 +1,84 @@
-<!doctype html>
-<html lang="id">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About - Aneka Vandel</title>
-  <link rel="stylesheet" href="../styles/about.css" />
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <style>
-    .navbar-auth {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-signin {
-      background: #1a2744;
-      color: white !important;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none !important;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.2s;
-    }
-
-    .btn-signin:hover {
-      background: #0f1a33;
-    }
-
-    .btn-logout {
-      background: transparent;
-      color: rgba(255, 255, 255, 0.7) !important;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none !important;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    .btn-logout:hover {
-      color: white !important;
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .user-greeting {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 13px;
-    }
-  </style>
-</head>
-
-<body>
-  <!-- ===== NAVBAR ===== -->
-  <header class="navbar">
-    <a class="navbar-brand" href="#">
-      <img src="./assets/logo-vandel.png" alt="Aneka Vandel Logo" />
-      <span>Aneka Vandel</span>
-    </a>
-    <nav class="navbar-links">
-      <a href="./about.html">About</a>
-      <a href="./catalog.html">Catalog</a>
-      <div class="navbar-auth" id="authArea">
-        <!-- Diisi oleh JS -->
-      </div>
-    </nav>
-  </header>
-
-  <!-- ===== CERITA KAMI ===== -->
-  <section class="section-story">
-    <div class="story-text">
-      <h1>Cerita Kami</h1>
-      <div class="story-paragraphs">
-        <p>
+<x-layout title="About - Aneka Vandel">
+  <section class="px-8 lg:px-48 pt-20 pb-20 flex flex-col lg:flex-row items-center lg:items-start gap-16 lg:gap-20">
+    <div class="flex-1 flex flex-col gap-6">
+      <h1 class="font-outfit font-bold text-4xl sm:text-5xl leading-tight sm:leading-tight text-[#1C398E]">Cerita Kami</h1>
+      <div class="flex flex-col gap-4">
+        <p class="font-inter font-normal text-xl leading-relaxed text-black max-w-lg">
           Aneka Vandel didirikan dengan misi untuk menyediakan produk
           penghargaan berkualitas tinggi yang dapat mengabadikan momen penting
           dalam kehidupan organisasi dan individu.
         </p>
-        <p>
+        <p class="font-inter font-normal text-xl leading-relaxed text-black max-w-lg">
           Dengan tim profesional yang berpengalaman, kami telah melayani
           ratusan klien dari berbagai sektor, mulai dari pemerintahan,
           pendidikan, hingga perusahaan swasta.
         </p>
-        <p>
+        <p class="font-inter font-normal text-xl leading-relaxed text-black max-w-lg">
           Komitmen kami adalah memberikan produk terbaik dengan desain yang
           elegan, bahan berkualitas premium, dan pengerjaan yang detail untuk
           setiap pesanan.
         </p>
       </div>
     </div>
-    <div class="story-image">
-      <img src="./assets/pengrajinmarmer.jpg" alt="Foto tim Aneka Vandel" />
+    <div class="w-full lg:max-w-lg lg:shrink-0 h-80 lg:h-128 rounded-2xl overflow-hidden shadow-custom">
+      <img src="./assets/pengrajinmarmer.jpg" alt="Foto tim Aneka Vandel" class="w-full h-full object-cover block" />
     </div>
   </section>
 
-  <!-- ===== PROSES PRODUKSI ===== -->
-  <section class="section-process">
-    <div class="process-header">
-      <h2>Proses Produksi Kami</h2>
-      <p>
+  <section class="bg-[#EDF5FF] px-8 lg:px-48 pt-16 pb-20">
+    <div class="text-center mb-6">
+      <h2 class="font-outfit font-bold text-4xl sm:text-5xl leading-tight sm:leading-tight text-[#1C398E]">Proses Produksi Kami</h2>
+      <p class="font-inter font-normal text-xl leading-relaxed text-[#4A5565] mt-2">
         Setiap produk melalui tahapan yang terstruktur untuk memastikan
         kualitas terbaik
       </p>
     </div>
 
-    <div class="process-steps">
-      <div class="step">
-        <div class="step-number"><span>1</span></div>
-        <div class="step-title">Konsultasi</div>
-        <div class="step-desc">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12 mb-14">
+      <div class="flex flex-col items-center text-center gap-6">
+        <div class="w-24 h-24 bg-white rounded-full outline outline-[#1C398E] shadow-step flex items-center justify-center shrink-0">
+          <span class="font-outfit font-bold text-4xl leading-normal text-[#1C398E]">1</span>
+        </div>
+        <div class="font-inter font-bold text-2xl leading-9 text-[#101828]">Konsultasi</div>
+        <div class="font-inter font-normal text-base leading-6 text-[#4A5565] max-w-56">
           Diskusi kebutuhan dan desain yang Anda inginkan
         </div>
       </div>
-      <div class="step">
-        <div class="step-number"><span>2</span></div>
-        <div class="step-title">Desain</div>
-        <div class="step-desc">
+      <div class="flex flex-col items-center text-center gap-6">
+        <div class="w-24 h-24 bg-white rounded-full outline outline-[#1C398E] shadow-step flex items-center justify-center shrink-0">
+          <span class="font-outfit font-bold text-4xl leading-normal text-[#1C398E]">2</span>
+        </div>
+        <div class="font-inter font-bold text-2xl leading-9 text-[#101828]">Desain</div>
+        <div class="font-inter font-normal text-base leading-6 text-[#4A5565] max-w-56">
           Tim desainer membuat mock-up sesuai spesifikasi
         </div>
       </div>
-      <div class="step">
-        <div class="step-number"><span>3</span></div>
-        <div class="step-title">Produksi</div>
-        <div class="step-desc">
+      <div class="flex flex-col items-center text-center gap-6">
+        <div class="w-24 h-24 bg-white rounded-full outline outline-[#1C398E] shadow-step flex items-center justify-center shrink-0">
+          <span class="font-outfit font-bold text-4xl leading-normal text-[#1C398E]">3</span>
+        </div>
+        <div class="font-inter font-bold text-2xl leading-9 text-[#101828]">Produksi</div>
+        <div class="font-inter font-normal text-base leading-6 text-[#4A5565] max-w-56">
           Produksi dengan mesin modern dan tenaga ahli
         </div>
       </div>
-      <div class="step">
-        <div class="step-number"><span>4</span></div>
-        <div class="step-title">Quality Check</div>
-        <div class="step-desc">
+      <div class="flex flex-col items-center text-center gap-6">
+        <div class="w-24 h-24 bg-white rounded-full outline outline-[#1C398E] shadow-step flex items-center justify-center shrink-0">
+          <span class="font-outfit font-bold text-4xl leading-normal text-[#1C398E]">4</span>
+        </div>
+        <div class="font-inter font-bold text-2xl leading-9 text-[#101828]">Quality Check</div>
+        <div class="font-inter font-normal text-base leading-6 text-[#4A5565] max-w-56">
           Pengecekan kualitas sebelum dikirim ke pelanggan
         </div>
       </div>
     </div>
 
-    <div class="process-image">
+    <div class="w-full h-96 rounded-2xl overflow-hidden shadow-custom">
       <img
         src="./assets/vandelmarmer.png"
-        alt="Proses produksi Aneka Vandel" />
+        alt="Proses produksi Aneka Vandel"
+        class="w-full h-full object-cover block"
+      />
     </div>
   </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="footer-icons">
-      <div class="footer-icon">
-        <svg
-          width="14"
-          height="18"
-          viewBox="0 0 14 18"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5C5.62 9.5 4.5 8.38 4.5 7S5.62 4.5 7 4.5 9.5 5.62 9.5 7 8.38 9.5 7 9.5z" />
-        </svg>
-      </div>
-      <div class="footer-icon">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M2.7 6.1c1.2 2.4 3.2 4.3 5.6 5.6l1.9-1.9c.2-.2.5-.3.8-.2 1 .3 2 .5 3 .5.5 0 1 .4 1 1V13c0 .5-.4 1-1 1C5.9 14 0 8.1 0 1 0 .4.4 0 1 0h2.5c.5 0 1 .4 1 1 0 1 .2 2 .5 3 .1.3 0 .6-.2.8L2.7 6.1z" />
-        </svg>
-      </div>
-      <div class="footer-icon">
-        <svg
-          width="14"
-          height="12"
-          viewBox="0 0 14 12"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M14 1.5C14 .67 13.33 0 12.5 0h-11C.67 0 0 .67 0 1.5v9C0 11.33.67 12 1.5 12h11c.83 0 1.5-.67 1.5-1.5v-9zM12.5 1.5L7 5 1.5 1.5h11zM1.5 10.5v-7l5.5 3.5 5.5-3.5v7h-11z" />
-        </svg>
-      </div>
-      <div class="footer-icon">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7 1.26c1.87 0 2.09.01 2.83.04.68.03 1.05.14 1.3.24.33.13.56.28.8.52.25.25.4.48.53.8.1.25.21.62.24 1.3.03.74.04.96.04 2.84s-.01 2.1-.04 2.84c-.03.68-.14 1.05-.24 1.3-.13.33-.28.56-.52.8-.25.25-.48.4-.81.53-.25.1-.62.21-1.3.24-.74.03-.96.04-2.83.04s-2.09-.01-2.83-.04c-.68-.03-1.05-.14-1.3-.24-.33-.13-.56-.28-.8-.52-.25-.25-.4-.48-.53-.81-.1-.25-.21-.62-.24-1.3C1.27 9.1 1.26 8.88 1.26 7s.01-2.1.04-2.84c.03-.68.14-1.05.24-1.3.13-.33.28-.56.52-.8.25-.25.48-.4.81-.53.25-.1.62-.21 1.3-.24C4.91 1.27 5.13 1.26 7 1.26M7 0C5.1 0 4.87.01 4.12.04 3.37.07 2.87.19 2.42.37c-.46.18-.86.42-1.25.81C.78 1.57.54 1.97.36 2.43.18 2.88.06 3.38.03 4.13.01 4.87 0 5.1 0 7c0 1.9.01 2.13.04 2.88.03.75.15 1.25.33 1.7.18.46.42.86.81 1.25.39.39.79.63 1.25.81.45.18.95.3 1.7.33C4.87 13.99 5.1 14 7 14s2.13-.01 2.88-.04c.75-.03 1.25-.15 1.7-.33.46-.18.86-.42 1.25-.81.39-.39.63-.79.81-1.25.18-.45.3-.95.33-1.7.03-.75.04-.98.04-2.88s-.01-2.13-.04-2.88c-.03-.75-.15-1.25-.33-1.7-.18-.46-.42-.86-.81-1.25C12.44.78 12.04.54 11.58.36 11.13.18 10.63.06 9.88.03 9.13.01 8.9 0 7 0zm0 3.4A3.6 3.6 0 1 0 7 10.6 3.6 3.6 0 0 0 7 3.4zm0 5.94A2.34 2.34 0 1 1 7 4.66a2.34 2.34 0 0 1 0 4.68zm4.59-6.09a.84.84 0 1 1-1.68 0 .84.84 0 0 1 1.68 0z" />
-        </svg>
-      </div>
-    </div>
-    <p class="footer-copy">© 2026 Aneka Vandel. All rights reserved</p>
-  </footer>
-
-  <script>
-    // Auth-aware navbar
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
-    const userEmail = sessionStorage.getItem("userEmail") || "";
-    const authArea = document.getElementById("authArea");
-
-    if (isLoggedIn) {
-      const display =
-        userEmail !== "google-user" ? userEmail.split("@")[0] : "User";
-      authArea.innerHTML = `
-        <span class="user-greeting">Hi, ${display}</span>
-        <button class="btn-logout" onclick="logout()">Logout</button>
-      `;
-    } else {
-      authArea.innerHTML = `<a href="./login.html" class="btn-signin">Sign in</a>`;
-    }
-
-    function logout() {
-      sessionStorage.clear();
-      window.location.href = "./login.html";
-    }
-  </script>
-</body>
-
-</html>
+</x-layout>
