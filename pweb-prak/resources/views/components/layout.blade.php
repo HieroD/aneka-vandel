@@ -15,7 +15,7 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="m-0 bg-white text-[#333333] font-sans">
+<body class=" flex flex-col min-h-screen m-0 bg-white text-[#333333] font-sans">
 
     <header class="bg-white mb-0 shadow-[0_2px_10px_rgba(0,0,0,0.05)] sticky top-0 z-10 px-[10%]">
         <nav class="font-semibold text-[20px] text-[#424242] py-2.5 flex justify-between items-center">
@@ -28,6 +28,8 @@
             <div id="navbar">
                 <a href="/about" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">About</a>
                 <a href="{{ route('catalog.index', ['kategori' => 'all']) }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Catalog</a>
+                <a href="{{ route('user-profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Dashboard</a>
+                <a href="{{ route('admin-profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Admin</a>
                 <a href="/login"><button class="py-2 px-6.25 ml-3.75 rounded-full border-none cursor-pointer text-white font-normal text-[16px] bg-primary hover:bg-primary-hover transition-colors">Sign in</button></a>
             </div>
         </nav>

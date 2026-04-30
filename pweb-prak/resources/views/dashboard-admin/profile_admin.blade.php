@@ -1,4 +1,4 @@
-\@extends('admin_layout')
+@extends('dashboard-admin.admin_layout')
 <style>
   .page-title {
     font-size: 22px;
@@ -169,7 +169,7 @@
     display: none;
   }
 </style>
-@endpush
+{{-- @endpush --}}
 
 @section('content')
 
@@ -190,7 +190,7 @@
       <div class="form-group">
         <label for="name">Nama Lengkap</label>
         <input type="text" id="name" name="name" class="input-nama"
-          value="{{ old('name', auth()->user()->name) }}" required />
+          value="{{ auth()->user()->name ?? 'Azka'}}" required />
         @error('name')
         <p class="error-msg">{{ $message }}</p>
         @enderror
@@ -200,7 +200,7 @@
         <label for="email">Email</label>
         {{-- Email read-only; untuk ubah email bisa ditambahkan flow verifikasi --}}
         <input type="email" id="email" name="email" class="input-email"
-          value="{{ auth()->user()->email }}" readonly />
+          value="{{ auth()->user()->email ?? 'Placeholder'}}" readonly />
       </div>
 
       <div class="form-group">

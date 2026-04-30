@@ -229,7 +229,7 @@
             </a>
             <div class="nav-links">
                 <a href="{{ route('about') }}">About</a>
-                <a href="{{ route('catalog.index', 'all') }}">Catalog</a>
+                <a href="{{ route('catalog.index', ['kategori' => 'all'])}}">Catalog</a>
                 <form method="POST" action="{{ route('logout') }}" style="margin:0;">
                     @csrf
                     @method('DELETE')
@@ -250,7 +250,7 @@
         {{-- SIDEBAR --}}
         <aside class="sidebar">
             <div class="sidebar-greeting">
-                <div class="greeting">Halo, {{ auth()->user()->name }}! 👋</div>
+                <div class="greeting">Halo, {{ auth()->user()->name ?? 'Azka'}}! 👋</div>
                 <div class="sub">Bagaimana kabarmu?</div>
             </div>
 

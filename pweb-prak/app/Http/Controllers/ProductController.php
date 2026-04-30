@@ -16,7 +16,7 @@ class ProductController extends Controller
             $items = Product::where('kategori', $kategori)->get();
         }
 
-        return view('product.catalog', compact('items'));
+        return view('product.index', compact('items'));
     }
 
     public function show($id)

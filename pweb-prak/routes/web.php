@@ -38,3 +38,21 @@ Route::middleware(['can:admin'])->group(function () {
 
 Route::get('/catalog/{kategori}', [ProductController::class, 'index'])->name('catalog.index');
 Route::get('/catalog/show/{id}', [ProductController::class, 'show'])->name('catalog.show');
+
+Route::get('/dashboard/profile', function () {
+    return view('dashboard-user.dashboard-profil');
+})->name('user-profile');
+Route::get('/dashboard/pesanan', function () {
+    return view('dashboard-user.dashboard-pesanan');
+})->name('user-pesanan');
+
+
+Route::get('/dashboard/admin/profile', function () {
+    return view('dashboard-admin.profile_admin');
+})->name('admin-profile');
+Route::get('/dashboard/admin/pesanan', function () {
+    return view('dashboard-admin.kelola_pesanan_admin');
+})->name('admin-pesanan');
+Route::get('/dashboard/admin/statistik', function () {
+    return view('dashboard-admin.statistik_admin');
+})->name('admin-statistik');
