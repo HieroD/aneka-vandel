@@ -7,22 +7,20 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index($kategori = 'all')
+    public function index($category = 'all')
     {
-        if($kategori === 'all'){
-            $items = Product::all();
-        } 
-        else{
-            $items = Product::where('kategori', $kategori)->get();
+        if ($category === 'all') {
+            $products = Product::all();
+        } else {
+            $products = Product::where('category', $category)->get();
         }
 
-        return view('product.index', compact('items'));
+        return view('product.index', compact('products'));
     }
 
-    public function show($id)
+    public function show(Product $product)
     {
-        $product_id = $id;
-        return view('product.show', compact('product_id'));
+        return view('product.show', compact('product'));
     }
 
     public function create()
@@ -38,28 +36,20 @@ class ProductController extends Controller
             'category'      => ['required'],
             'price'         => ['required', 'integer'],
             'total_product' => ['required', 'integer'],
-            'img_path'      => [],
+            'img_path'      => [], 
         ]);
 
-        Product::create([
-            'name'          => $validated['name'],
-            'description'   => $validated['description'],
-            'category'      => $validated['category'],
-            'price'         => $validated['price'],
-            'total_product' => $validated['total_product'],
-            'img_path'      => $validated['img_path'],
-        ]);
+        Product::create($validated);
 
         return back()->with('success', 'Product created!');
     }
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product_id = $id;
-        return view('product.edit', compact('product_id'));
+        return view('product.edit', compact('product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
             'name'          => ['required', 'min:3'],
@@ -70,21 +60,13 @@ class ProductController extends Controller
             'img_path'      => [],
         ]);
 
-        Product::where('id', $id)->update([
-            'name'          => $validated['name'],
-            'description'   => $validated['description'],
-            'category'      => $validated['category'],
-            'price'         => $validated['price'],
-            'total_product' => $validated['total_product'],
-            'img_path'      => $validated['img_path'],
-        ]);
+        $product->update($validated);
 
         return back()->with('success', 'Product updated!');
     }
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::find($id);
         $product->delete();
         
         return back()->with('success', 'Product deleted!');
