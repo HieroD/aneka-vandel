@@ -15,17 +15,17 @@ class ProductController extends Controller
             $products = Product::where('category', $category)->get();
         }
 
-        return view('product.index', compact('products'));
+        return view('front.catalog.index', compact('products'));
     }
 
     public function show(Product $product)
     {
-        return view('product.show', compact('product'));
+        return view('front.catalog.show', compact('product'));
     }
 
     public function create()
     {
-        return view('product.create');
+        return view('admin.catalog.create');
     }
 
     public function store(Request $request)
@@ -46,7 +46,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        return view('admin.catalog.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)
