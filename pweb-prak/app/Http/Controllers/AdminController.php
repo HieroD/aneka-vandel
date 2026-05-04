@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function profile()
     {
         $admin = Auth::user();
 
@@ -15,6 +16,19 @@ class AdminController extends Controller
         }
         
         return view('admin.dashboard.profile', compact('admin'));
+    }
+
+    public function orders()
+    {
+        $admin = Auth::user();
+
+        if($admin->role !== 'admin'){ 
+            abort(403, 'Unauthorized action.');
+        }
+
+        $orders = Order::with('products')->latest()->get();
+
+        return view('admin.dashboard.profile', compact('orders'));
     }
 
     public function statistic()

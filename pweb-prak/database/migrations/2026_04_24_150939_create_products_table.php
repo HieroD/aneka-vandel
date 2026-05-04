@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('img_path');
             $table->timestamps();
         });
-    }
-
     public function down(): void
     {
         Schema::dropIfExists('products');

@@ -4,40 +4,7 @@
     <div class="flex flex-1 max-w-7xl mx-auto w-full px-6 py-8 gap-6">
 
         {{-- SIDEBAR --}}
-        <aside class="w-60 shrink-0">
-            <div class="mb-6">
-                <h2 class="text-lg font-bold text-gray-800">Halo, {{ auth()->user()->name ?? 'User' }}! 👋</h2>
-                <p class="text-sm text-gray-500">Bagaimana kabarmu?</p>
-            </div>
-
-            <nav class="flex flex-col gap-2">
-                <a href="" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 font-medium transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8 8 0 1118.88 6.196M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Profil Saya
-                </a>
-
-                <a href="" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 font-medium transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    Pesanan Saya
-                </a>
-            </nav>
-
-            <div class="mt-2">
-                <form method="">
-                    @csrf
-                    <button type="submit" class="flex items-center gap-3 px-4 py-3 text-red-600 hover:text-red-700 font-medium transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
-                        </svg>
-                        Keluar
-                    </button>
-                </form>
-            </div>
-        </aside>
+        <x-sidebar/>
 
         {{-- PROFILE FORM --}}
         <main class="flex-1 bg-white rounded-2xl shadow-sm p-8">
@@ -46,7 +13,7 @@
 
             <div class="flex gap-10">
                 {{-- Form Fields --}}
-                <form method="" enctype="multipart/form-data" class="flex-1">
+                <form method="post" enctype="multipart/form-data" action="{{ route('user.update') }}" class="flex-1">
                     @csrf
                     @method('PUT')
 
@@ -78,7 +45,7 @@
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <button type="submit" class="text-blue-600 font-medium text-sm hover:text-blue-700 transition">Simpan Perubahan</button>
+                        <button type="submit" class="cursor-pointer text-blue-600 font-medium text-sm hover:text-blue-700 transition">Simpan Perubahan</button>
                         <a href="{{ url()->previous() }}" class="text-red-500 font-medium text-sm hover:text-red-600 transition">Batal</a>
                     </div>
                 </form>

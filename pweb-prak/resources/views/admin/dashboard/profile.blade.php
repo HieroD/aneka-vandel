@@ -1,4 +1,4 @@
-@extends('dashboard-admin.admin_layout')
+@extends('admin.admin_layout')
 <style>
   .page-title {
     font-size: 22px;

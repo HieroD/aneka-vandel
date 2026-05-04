@@ -30,7 +30,7 @@
                 <a href="{{ route('catalog.index', ['kategori' => 'all']) }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Catalog</a>
 
                 @if(auth()->user() && auth()->user()->role === 'admin')
-                    <a href="{{ route('admin.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Admin</a>
+                    <a href="{{ route('admin.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Admin</a>    
                 @else
                     <a href="{{ route('user.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Dashboard</a>
                 @endif    

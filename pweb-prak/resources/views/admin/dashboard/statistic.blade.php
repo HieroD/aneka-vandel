@@ -1,4 +1,4 @@
-@extends('admin_layout')
+@extends('admin.admin_layout')
 <style>
   .page-title {
     font-size: 22px;
@@ -352,7 +352,7 @@
     font-weight: 500;
   }
 </style>
-@endpush
+{{-- @endpush --}}
 
 @section('content')
 
@@ -407,7 +407,7 @@
       @php
       $days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
       $heights= [40, 55, 50, 70, 90, 100, 45];
-      $active = 4; {{-- FRI --}}
+      $active = 4;
       @endphp
       @foreach($days as $i => $day)
       <div class="bar-group">
@@ -515,7 +515,7 @@
       <tr data-status="selesai" data-search="av-20260520-001 vandel a u0001">
         <td><span class="order-id">AV-20260520-001</span></td>
         <td>20 Mei 2026</td>
-        <td>Vandel A – 50 Pcs</td>
+        <td>Vandel A - 50 Pcs</td>
         <td>Rp 750.000</td>
         <td><span class="badge selesai">Selesai</span></td>
         <td><span class="customer-id">U0001</span></td>
@@ -523,7 +523,7 @@
       <tr data-status="dikirim" data-search="av-20260522-002 vandel b u0002">
         <td><span class="order-id">AV-20260522-002</span></td>
         <td>22 Mei 2026</td>
-        <td>Vandel B – 10 Pcs</td>
+        <td>Vandel B - 10 Pcs</td>
         <td>Rp 150.000</td>
         <td><span class="badge dikirim">Dikirim</span></td>
         <td><span class="customer-id">U0002</span></td>
@@ -531,7 +531,7 @@
       <tr data-status="diproses" data-search="av-20260525-003 vandel c u0002">
         <td><span class="order-id">AV-20260525-003</span></td>
         <td>25 Mei 2026</td>
-        <td>Vandel C – 3 Pcs</td>
+        <td>Vandel C - 3 Pcs</td>
         <td>Rp 45.000</td>
         <td><span class="badge diproses">Diproses</span></td>
         <td><span class="customer-id">U0002</span></td>
