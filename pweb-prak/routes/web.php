@@ -31,6 +31,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'delete'])->name('logout');
 
+    Route::get('/order/{product}', [OrderController::class, 'create'])->name('user.order.create');
+    Route::get('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
+
     Route::get('/dashboard/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::put('/dashboard/profile', [UserController::class, 'update'])->name('user.update');
     Route::get('/dashboard/orders', [UserController::class, 'orders'])->name('user.orders');

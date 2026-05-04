@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+class OrderController extends Controller
+{
+    public function create(Product $product)
+    {
+        return view('user.order.create', compact('product'));
+    }
+
+    public function store(Request $request, Product $product)
+    {
+        $validated = $request->validate([
+            'total_order' => 'required', 'integer', 'min:1', 'max:{$product->total_product}'
+        ]);
+
+        // transaction
+        try {
+            DB::beginTransaction();
+            
+            $order = Auth::user()->orders()->create([
+                'status' => 'pending',
+                'order_date' => now()
+            ]);
+
+            $order->products()->attach($product->id,[
+                'total_order' => $validated['total_order']
+            ]);
+
+            $product->decrement('total_product', $validated['total_order']);
+
+            DB::commit();
+
+            return redirect()->route('catalog.index')->with('success', 'Order placed!');
+
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return back()->with('error', 'Transaction failed!' . $e->getMessage());
+        }  
+    }
+}
