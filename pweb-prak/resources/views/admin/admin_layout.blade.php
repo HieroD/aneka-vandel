@@ -256,8 +256,8 @@
 
             <nav class="sidebar-nav">
 
-                <a href="#"
-                    class="sidebar-link {{ request()->routeIs('admin.profil') ? 'active' : '' }}">
+                <a href=" {{ route('admin.profile') }} "
+                    class="sidebar-link {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
@@ -266,8 +266,8 @@
                 </a>
 
 
-                <a href="#"
-                    class="sidebar-link {{ request()->routeIs('admin.pesanan') ? 'active' : '' }}">
+                <a href=" {{ route('admin.orders') }} "
+                    class="sidebar-link {{ request()->routeIs('admin.orders') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
                         <line x1="3" y1="6" x2="21" y2="6" />
@@ -276,8 +276,8 @@
                 </a>
 
 
-                <a href="#"
-                    class="sidebar-link {{ request()->routeIs('admin.statistik') ? 'active' : '' }}">
+                <a href=" {{ route('admin.statistic') }} "
+                    class="sidebar-link {{ request()->routeIs('admin.statistic') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="20" x2="18" y2="10" />
                         <line x1="12" y1="20" x2="12" y2="4" />

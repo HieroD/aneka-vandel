@@ -1,4 +1,4 @@
-@extends('admin_layout')
+@extends('admin.admin_layout')
 <style>
   .page-title {
     font-size: 22px;
@@ -219,7 +219,6 @@
     font-size: 14px;
   }
 </style>
-@endpush
 
 @section('content')
 

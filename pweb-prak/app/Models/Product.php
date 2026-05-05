@@ -19,7 +19,7 @@ class Product extends Model
             'product_id',         
             'order_id'       
         )
-        ->withPivot('total_order')
+        ->withPivot('total_order', 'total_price')
         ->withTimestamps()  
         ->using(ProductOrder::class);
     }

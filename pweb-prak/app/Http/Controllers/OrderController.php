@@ -20,6 +20,8 @@ class OrderController extends Controller
             'total_order' => 'required', 'integer', 'min:1', 'max:{$product->total_product}'
         ]);
 
+        $total_price = $validated['total_order'] * $product->price;
+
         // transaction
         try {
             DB::beginTransaction();
@@ -30,7 +32,8 @@ class OrderController extends Controller
             ]);
 
             $order->products()->attach($product->id,[
-                'total_order' => $validated['total_order']
+                'total_order' => $validated['total_order'],
+                'total_price' => $total_price,
             ]);
 
             $product->decrement('total_product', $validated['total_order']);

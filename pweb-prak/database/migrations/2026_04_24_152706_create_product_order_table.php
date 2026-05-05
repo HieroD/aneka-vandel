@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Order::class)->constrained();
             $table->foreignIdFor(Product::class)->constrained();
             $table->integer('total_order')->default(1);
+            $table->integer('total_price');
             $table->timestamps();
         });
     }

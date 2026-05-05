@@ -27,7 +27,7 @@ class Order extends Model
             'order_id',   
             'product_id',    
         )
-        ->withPivot('total_order')    
+        ->withPivot('total_order', 'total_price')    
         ->withTimestamps()  
         ->using(ProductOrder::class);
     }
