@@ -119,6 +119,7 @@
       cursor: pointer;
       color: #888;
       display: flex;
+      flex-direction: column;
       padding: 4px;
     }
 
