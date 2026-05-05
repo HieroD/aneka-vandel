@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,7 +32,15 @@ Route::middleware('guest')->group(function () {
 // Authenticated user
 Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'delete'])->name('logout');
+    
+    Route::get('/email/verify', [VerificationController::class, 'index'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
+});
 
+
+// Verified user
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/order/{product}', [OrderController::class, 'create'])->name('user.order.create');
     Route::get('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
 

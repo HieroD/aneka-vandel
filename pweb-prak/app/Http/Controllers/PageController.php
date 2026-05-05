@@ -6,7 +6,7 @@ class PageController extends Controller
 {
     public function home()
     {
-        return view('auth.verification');
+        return view('front.home');
     }
 
     public function about()
