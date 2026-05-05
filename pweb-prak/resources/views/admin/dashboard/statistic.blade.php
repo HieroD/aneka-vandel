@@ -405,13 +405,13 @@
 
     <div class="bar-chart" id="barChart">
       @php
-      $days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+      $days = ['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY'];
       $heights= [40, 55, 50, 70, 90, 100, 45];
-      $active = 4;
+      $active = strtoupper(\Carbon\Carbon::now()->format('l'));
       @endphp
       @foreach($days as $i => $day)
       <div class="bar-group">
-        <div style="--bar-height: {{ $heights[$i] }}px; --bar-bg: {{ $i === $active ? '#2d5fb3' : '#c9d8f0' }};"
+        <div style="--bar-height: {{ $heights[$i] }}px; --bar-bg: {{ $day === $active ? '#2d5fb3' : '#c9d8f0' }};"
           class="w-full h-[var(--bar-height)] bg-[var(--bar-bg)]">
         </div>
         <span class="bar-label">{{ $day }}</span>

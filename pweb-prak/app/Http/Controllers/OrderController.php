@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,5 +47,19 @@ class OrderController extends Controller
             DB::rollback();
             return back()->with('error', 'Transaction failed!' . $e->getMessage());
         }  
+    }
+
+    public function update(Request $request, Order $order)
+    {
+        
+        $validated = $request->validate([
+            'status'          => 'sometimes|string',
+            'order_date'      => 'sometimes|date',
+            'completion_date' => 'sometimes|date',
+        ]);
+
+        $order->update($validated);
+
+        return redirect()->route('admin.orders')->with('success', 'Order updated!');
     }
 }

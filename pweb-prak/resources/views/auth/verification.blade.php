@@ -208,7 +208,7 @@
     <h1>Verify your email</h1>
     <p class="subtitle">Kami telah mengirimkan link verifikasi ke email Anda. Silakan klik link tersebut untuk mengaktifkan akun.</p>
 
-    <div class="email-badge">{{ Auth::user()->email }}</div>
+    <div class="email-badge">{{ Auth::user()->email ?? "heru@gmail.com" }}</div>
 
     @if (session('status') === 'verification-link-sent')
     <div class="alert-success">Link verifikasi baru telah dikirim!</div>
@@ -219,7 +219,7 @@
       <button type="submit" class="btn-resend" id="resendBtn">Resend Email</button>
     </form>
 
-    <a href="{{ route('catalog.index', ['kategori' => 'all']) }}" class="btn-catalog">
+    <a href="{{ route('catalog.index', ['catgeory' => 'all']) }}" class="btn-catalog">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
         <polyline points="9,22 9,12 15,12 15,22" />
