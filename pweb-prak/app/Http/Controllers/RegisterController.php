@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -22,13 +23,17 @@ class RegisterController extends Controller
             'password'   => ['required', 'confirmed', 'min:8'],
         ]);
 
-        User::create([
+        $user = User::create([
             'name'     => $validated['first_name'] . ' ' . $validated['last_name'],
             'email'    => $validated['email'],
             'password' => $validated['password'],
             'role'     => 'member'
         ]);
 
-        return redirect('/');
+        Auth::login($user);
+
+        $request->session()->regenerate();
+    
+        return redirect('/')->with('success', 'You are now successfully logged in!');
     }
 }
