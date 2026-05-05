@@ -5,32 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up — Vandel</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
     body {
       font-family: "Poppins", sans-serif;
-      background-color: #0f2d6b;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .card {
-      background: #163070;
-      border: 1.5px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 16px;
-      padding: 38px 32px;
-      width: 100%;
-      max-width: 400px;
-      animation: fadeUp 0.45s ease;
     }
 
     @keyframes fadeUp {
@@ -44,233 +25,90 @@
         transform: translateY(0);
       }
     }
-
-    .logo-wrap {
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    .logo-img {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      object-fit: contain;
-      background: white;
-      border: 1.5px solid rgba(255, 255, 255, 0.2);
-      display: block;
-      margin: 0 auto;
-    }
-
-    h1 {
-      color: white;
-      font-size: 24px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 26px;
-    }
-
-    .name-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.9px;
-      text-transform: uppercase;
-      margin-bottom: 7px;
-    }
-
-    .input-wrap {
-      position: relative;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px 16px;
-      border: 1.5px solid transparent;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.93);
-      font-size: 14px;
-      color: #222;
-      transition: all 0.25s;
-    }
-
-    input:focus {
-      outline: none;
-      background: white;
-      border-color: rgba(255, 255, 255, 0.45);
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
-    }
-
-    input.error {
-      border-color: #ff7070;
-    }
-
-    .eye-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #888;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-    }
-
-    .btn-primary {
-      width: 100%;
-      padding: 14px;
-      background: #111827;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.25s;
-      margin-top: 6px;
-    }
-
-    .btn-primary:hover {
-      background: #0a0f1a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 20px 0;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .divider span {
-      padding: 0 12px;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 22px;
-      color: rgba(255, 255, 255, 0.55);
-      font-size: 13px;
-    }
-
-    .footer a {
-      color: white;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-links a {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 12px;
-      text-decoration: none;
-    }
-
-    .error-msg {
-      color: #ffaaaa;
-      font-size: 11px;
-      margin-top: 5px;
-    }
   </style>
 </head>
 
-<body>
-  <div class="card">
-    <div class="logo-wrap">
-      <img src="{{ asset('assets/logo-vandel.png') }}" alt="Logo" class="logo-img" />
+<body class="bg-[#0f2d6b] min-h-screen flex items-center justify-center p-5">
+
+  <!-- SAMA PERSIS DENGAN LOGIN -->
+  <div class="bg-[#163070] border border-dashed border-white/25 rounded-2xl p-10 w-full max-w-sm animate-[fadeUp_.45s_ease]">
+
+    <!-- Logo -->
+    <div class="text-center mb-3">
+      <img src="{{ asset('assets/logo-vandel.png') }}"
+        class="w-[72px] h-[72px] mx-auto rounded-full object-contain bg-white border border-white/20">
     </div>
 
-    <h1>Sign up</h1>
+    <h1 class="text-white text-2xl font-bold text-center mb-7">Sign up</h1>
 
-    <form action="{{ route('register.store') }}" method="POST" id="registerForm">
+    <!-- FORM -->
+    <form action="{{ route('register.store') }}" method="POST">
       @csrf
 
-      <div class="name-row">
-        <div class="form-group">
-          <label for="first_name">First Name</label>
-          <input type="text" id="first_name" name="first_name" placeholder="First name"
-            value="{{ old('first_name') }}" class="{{ $errors->has('first_name') ? 'error' : '' }}" required />
+      <!-- NAME -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <label class="block text-white/80 text-[11px] font-semibold uppercase tracking-wider mb-2">First Name</label>
+          <input type="text" name="first_name" value="{{ old('first_name') }}"
+            placeholder="First name"
+            class="w-full px-4 py-3 rounded-lg bg-white/90 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-white/30 {{ $errors->has('first_name') ? 'border border-red-400' : '' }}">
           @error('first_name')
-          <div class="error-msg">{{ $message }}</div>
+          <div class="text-red-300 text-[11px] mt-1">{{ $message }}</div>
           @enderror
         </div>
-        <div class="form-group">
-          <label for="last_name">Last Name</label>
-          <input type="text" id="last_name" name="last_name" placeholder="Last name"
-            value="{{ old('last_name') }}" class="{{ $errors->has('last_name') ? 'error' : '' }}" required />
+
+        <div>
+          <label class="block text-white/80 text-[11px] font-semibold uppercase tracking-wider mb-2">Last Name</label>
+          <input type="text" name="last_name" value="{{ old('last_name') }}"
+            placeholder="Last name"
+            class="w-full px-4 py-3 rounded-lg bg-white/90 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-white/30 {{ $errors->has('last_name') ? 'border border-red-400' : '' }}">
           @error('last_name')
-          <div class="error-msg">{{ $message }}</div>
+          <div class="text-red-300 text-[11px] mt-1">{{ $message }}</div>
           @enderror
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email"
-          value="{{ old('email') }}" class="{{ $errors->has('email') ? 'error' : '' }}" required />
+      <!-- EMAIL -->
+      <div class="mb-4">
+        <label class="block text-white/80 text-[11px] font-semibold uppercase tracking-wider mb-2">Email</label>
+        <input type="email" name="email" value="{{ old('email') }}"
+          placeholder="Enter your email"
+          class="w-full px-4 py-3 rounded-lg bg-white/90 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-white/30 {{ $errors->has('email') ? 'border border-red-400' : '' }}">
         @error('email')
-        <div class="error-msg">{{ $message }}</div>
+        <div class="text-red-300 text-[11px] mt-1">{{ $message }}</div>
         @enderror
       </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-wrap">
-          <input type="password" id="password" name="password" placeholder="Create password"
-            style="padding-right: 42px" class="{{ $errors->has('password') ? 'error' : '' }}" required />
-          <button class="eye-btn" type="button" onclick="togglePass('password', this)">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <!-- PASSWORD -->
+      <div class="mb-4">
+        <label class="block text-white/80 text-[11px] font-semibold uppercase tracking-wider mb-2">Password</label>
+        <div class="relative">
+          <input type="password" id="password" name="password"
+            placeholder="Create password"
+            class="w-full px-4 py-3 pr-10 rounded-lg bg-white/90 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-white/30 {{ $errors->has('password') ? 'border border-red-400' : '' }}">
+          <button type="button" onclick="togglePass('password', this)"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
           </button>
         </div>
         @error('password')
-        <div class="error-msg">{{ $message }}</div>
+        <div class="text-red-300 text-[11px] mt-1">{{ $message }}</div>
         @enderror
       </div>
 
-      <div class="form-group">
-        <label for="password_confirmation">Confirm Password</label>
-        <div class="input-wrap">
+      <!-- CONFIRM -->
+      <div class="mb-5">
+        <label class="block text-white/80 text-[11px] font-semibold uppercase tracking-wider mb-2">Confirm Password</label>
+        <div class="relative">
           <input type="password" id="password_confirmation" name="password_confirmation"
-            placeholder="Confirm password" style="padding-right: 42px" required />
-          <button class="eye-btn" type="button" onclick="togglePass('password_confirmation', this)">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            placeholder="Confirm your password"
+            class="w-full px-4 py-3 pr-10 rounded-lg bg-white/90 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-white/30">
+          <button type="button" onclick="togglePass('password_confirmation', this)"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
@@ -278,31 +116,55 @@
         </div>
       </div>
 
-      <button type="submit" class="btn-primary">Create Account</button>
+      <!-- BUTTON SAMA -->
+      <button type="submit"
+        class="w-full py-3 bg-gray-900 hover:bg-black text-white font-bold text-sm tracking-widest uppercase rounded-lg transition transform hover:-translate-y-1 shadow-lg">
+        Register
+      </button>
+
     </form>
 
-    <div class="divider"><span>Help & Navigation</span></div>
-
-    <div class="footer">
-      Already have an account? <a href="{{ route('login') }}">Sign in</a>
+    <!-- DIVIDER SAMA LOGIN -->
+    <div class="flex items-center my-5 text-white/50 text-xs uppercase tracking-wider">
+      <div class="flex-1 h-px bg-white/20"></div>
+      <span class="px-3">or continue with</span>
+      <div class="flex-1 h-px bg-white/20"></div>
     </div>
 
-    <div class="nav-links">
-      <a href="{{ route('about') }}">About</a>
-      <a href="{{ route('catalog.index', ['kategori' => 'all']) }}">Catalog</a>
+    <!-- GOOGLE BUTTON (DITAMBAH BIAR CONSISTENT) -->
+    <button onclick="window.location.href='{{ route('home') }}'"
+      class="w-full flex items-center justify-center gap-2 py-3 bg-gray-900 hover:bg-black text-white text-sm font-semibold tracking-wide uppercase rounded-lg transition transform hover:-translate-y-1 shadow-lg">
+
+      <svg class="w-5 h-5" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.36 1.22 8.36 3.22l6.22-6.22C34.68 2.42 29.76 0 24 0 14.82 0 6.73 5.48 2.69 13.44l7.27 5.64C11.9 12.36 17.4 9.5 24 9.5z" />
+        <path fill="#4285F4" d="M46.1 24.5c0-1.6-.14-3.14-.4-4.63H24v9.26h12.46c-.54 2.9-2.18 5.36-4.64 7.02l7.27 5.64C43.96 37.1 46.1 31.36 46.1 24.5z" />
+        <path fill="#FBBC05" d="M9.96 28.09A14.5 14.5 0 0 1 9.5 24c0-1.42.25-2.79.7-4.09l-7.27-5.64A23.94 23.94 0 0 0 0 24c0 3.85.92 7.49 2.53 10.73l7.43-6.64z" />
+        <path fill="#34A853" d="M24 48c6.48 0 11.92-2.14 15.9-5.82l-7.27-5.64c-2.02 1.36-4.6 2.16-8.63 2.16-6.6 0-12.1-2.86-14.04-9.58l-7.43 6.64C6.73 42.52 14.82 48 24 48z" />
+      </svg>
+
+      Google
+    </button>
+
+    <!-- FOOTER SAMA -->
+    <div class="text-center mt-6 text-white/60 text-sm">
+      Already have an account?
+      <a href="{{ route('login') }}" class="text-white font-semibold hover:underline">Sign in</a>
     </div>
+
+    <div class="flex justify-center gap-6 mt-4 pt-4 border-t border-white/10 text-xs text-white/50">
+      <a href="{{ route('about') }}" class="hover:text-white">About</a>
+      <a href="{{ route('catalog.index', ['category' => 'all']) }}" class="hover:text-white">Catalog</a>
+    </div>
+
   </div>
 
   <script>
-    function togglePass(id, btn) {
+    function togglePass(id) {
       const inp = document.getElementById(id);
-      const isText = inp.type === "text";
-      inp.type = isText ? "password" : "text";
-      btn.querySelector("svg").innerHTML = isText ?
-        '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>' :
-        '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+      inp.type = inp.type === "text" ? "password" : "text";
     }
   </script>
+
 </body>
 
 </html>
