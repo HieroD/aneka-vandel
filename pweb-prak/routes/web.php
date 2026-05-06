@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\GmailController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
