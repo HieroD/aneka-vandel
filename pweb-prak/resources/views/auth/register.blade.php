@@ -132,7 +132,7 @@
     </div>
 
     <!-- GOOGLE BUTTON (DITAMBAH BIAR CONSISTENT) -->
-    <button onclick="window.location.href='{{ route('home') }}'"
+    <button onclick="window.location.href='{{ route('auth.google') }}'"
       class="w-full flex items-center justify-center gap-2 py-3 bg-gray-900 hover:bg-black text-white text-sm font-semibold tracking-wide uppercase rounded-lg transition transform hover:-translate-y-1 shadow-lg">
 
       <svg class="w-5 h-5" viewBox="0 0 48 48">

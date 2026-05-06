@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\GmailController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -34,6 +35,9 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
     Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
+
+    Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleController::class, 'handleCallback']);
 });
 
 
