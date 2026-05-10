@@ -44,7 +44,7 @@ Route::middleware('guest')->group(function () {
 // Authenticated user
 Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'delete'])->name('logout');
-    
+
     Route::get('/email/verify', [VerificationController::class, 'index'])->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
@@ -53,8 +53,11 @@ Route::middleware('auth')->group(function () {
 
 // Verified user
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Tambahkan rute ini
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
     Route::get('/order/{product}', [OrderController::class, 'create'])->name('user.order.create');
-    Route::get('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
+    Route::post('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
 
     Route::get('/dashboard/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::put('/dashboard/profile', [UserController::class, 'update'])->name('user.update');
