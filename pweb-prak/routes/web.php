@@ -49,8 +49,11 @@ Route::middleware('auth')->group(function () {
 
 // Verified user
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Tambahkan rute ini
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
     Route::get('/order/{product}', [OrderController::class, 'create'])->name('user.order.create');
-    Route::get('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
+    Route::post('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
 
     Route::get('/dashboard/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::put('/dashboard/profile', [UserController::class, 'update'])->name('user.update');
