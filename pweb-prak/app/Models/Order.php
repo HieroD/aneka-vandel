@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Product;
-use App\Models\ProductOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,25 +9,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Order extends Model
 {
     protected $guarded = [];
+
     protected $table = 'orders';
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
 
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(
             Product::class,
-            'product_order',   
-            'order_id',   
-            'product_id',    
+            'product_order',
+            'order_id',
+            'product_id',
         )
-        ->withPivot('total_order', 'total_price')    
-        ->withTimestamps()  
-        ->using(ProductOrder::class);
+            ->withPivot('total_order', 'total_price')
+            ->withTimestamps()
+            ->using(ProductOrder::class);
     }
 
     /**

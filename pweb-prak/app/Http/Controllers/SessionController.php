@@ -13,19 +13,20 @@ class SessionController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         $validated = $request->validate([
-            'email'    => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if(Auth::attempt($validated)){
+        if (Auth::attempt($validated)) {
             $request->session()->regenerate();
+
             return redirect('/')->with('success', 'You are now succesfully logged in!');
         }
 
         return back()->withErrors([
-            'match' => 'Email or password does not match'
+            'match' => 'Email or password does not match',
         ])->onlyInput('email');
     }
 
@@ -37,5 +38,4 @@ class SessionController extends Controller
 
         return redirect('/');
     }
-
 }

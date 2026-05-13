@@ -31,12 +31,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'          => ['required', 'min:3'],
-            'description'   => ['required'],
-            'category'      => ['required'],
-            'price'         => ['required', 'integer'],
+            'name' => ['required', 'min:3'],
+            'description' => ['required'],
+            'category' => ['required'],
+            'price' => ['required', 'integer'],
             'total_product' => ['required', 'integer'],
-            'img_path'      => [], 
+            'img_path' => [],
         ]);
 
         Product::create($validated);
@@ -52,12 +52,12 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'name'          => ['required', 'min:3'],
-            'description'   => ['required'],
-            'category'      => ['required'],
-            'price'         => ['required', 'integer'],
+            'name' => ['required', 'min:3'],
+            'description' => ['required'],
+            'category' => ['required'],
+            'price' => ['required', 'integer'],
             'total_product' => ['required', 'integer'],
-            'img_path'      => [],
+            'img_path' => [],
         ]);
 
         $product->update($validated);
@@ -68,7 +68,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        
+
         return back()->with('success', 'Product deleted!');
     }
 }

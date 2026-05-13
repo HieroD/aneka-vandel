@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -21,14 +19,14 @@ class GoogleController extends Controller
             $googleUser = Socialite::driver('google')->user();
 
             $user = User::updateOrcreate([
-                'gauth_id'   => $googleUser->id,
+                'gauth_id' => $googleUser->id,
             ], [
-                'name'              => $googleUser->name,
-                'email'             => $googleUser->email,
-                'gauth_id'          => $googleUser->id,
-                'gauth_type'        => 'google',
-                'password'          => bcrypt(str()->random(16)),
-                'role'              => 'member',
+                'name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'gauth_id' => $googleUser->id,
+                'gauth_type' => 'google',
+                'password' => bcrypt(str()->random(16)),
+                'role' => 'member',
                 'email_verified_at' => now(),
             ]);
 
@@ -40,5 +38,4 @@ class GoogleController extends Controller
             return redirect()->route('login')->with('error', $e->getMessage());
         }
     }
-
 }

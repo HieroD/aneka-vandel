@@ -13,14 +13,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
-
 // All
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::get('/catalog/category/{category?}', [ProductController::class, 'index'])->name('catalog.index');
 Route::get('/catalog/{product}', [ProductController::class, 'show'])->name('catalog.show');
-
 
 // Auth
 Route::middleware('guest')->group(function () {
@@ -40,16 +38,14 @@ Route::middleware('guest')->group(function () {
     Route::get('/auth/google/callback', [GoogleController::class, 'handleCallback']);
 });
 
-
 // Authenticated user
 Route::middleware('auth')->group(function () {
     Route::delete('/logout', [SessionController::class, 'delete'])->name('logout');
-    
+
     Route::get('/email/verify', [VerificationController::class, 'index'])->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
 });
-
 
 // Verified user
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -60,7 +56,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/dashboard/profile', [UserController::class, 'update'])->name('user.update');
     Route::get('/dashboard/orders', [UserController::class, 'orders'])->name('user.orders');
 });
-
 
 // Admin
 Route::middleware(['can:admin'])->group(function () {

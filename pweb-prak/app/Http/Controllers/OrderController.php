@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function store(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'total_order' => 'required', 'integer', 'min:1', 'max:{$product->total_product}'
+            'total_order' => 'required', 'integer', 'min:1', 'max:{$product->total_product}',
         ]);
 
         $total_price = $validated['total_order'] * $product->price;
@@ -26,13 +26,13 @@ class OrderController extends Controller
         // transaction
         try {
             DB::beginTransaction();
-            
+
             $order = Auth::user()->orders()->create([
                 'status' => 'pending',
-                'order_date' => now()
+                'order_date' => now(),
             ]);
 
-            $order->products()->attach($product->id,[
+            $order->products()->attach($product->id, [
                 'total_order' => $validated['total_order'],
                 'total_price' => $total_price,
             ]);
@@ -45,16 +45,17 @@ class OrderController extends Controller
 
         } catch (\Throwable $e) {
             DB::rollback();
-            return back()->with('error', 'Transaction failed!' . $e->getMessage());
-        }  
+
+            return back()->with('error', 'Transaction failed!'.$e->getMessage());
+        }
     }
 
     public function update(Request $request, Order $order)
     {
-        
+
         $validated = $request->validate([
-            'status'          => 'sometimes|string',
-            'order_date'      => 'sometimes|date',
+            'status' => 'sometimes|string',
+            'order_date' => 'sometimes|date',
             'completion_date' => 'sometimes|date',
         ]);
 

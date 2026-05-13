@@ -13,10 +13,10 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
 
-        if($admin->role !== 'admin'){ 
+        if ($admin->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
-        
+
         return view('admin.dashboard.profile', compact('admin'));
     }
 
@@ -24,7 +24,7 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
 
-        if($admin->role !== 'admin'){ 
+        if ($admin->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
 
@@ -37,7 +37,7 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
 
-        if($admin->role !== 'admin'){ 
+        if ($admin->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
 
@@ -46,24 +46,24 @@ class AdminController extends Controller
         $endOfWeek = Carbon::now()->endOfWeek();
 
         $salesTrend = [ // inisiate assoc array for days
-            'MONDAY'    => 0,
-            'TUESDAY'   => 0,
+            'MONDAY' => 0,
+            'TUESDAY' => 0,
             'WEDNESDAY' => 0,
-            'THURSDAY'  => 0,
-            'FRIDAY'    => 0,
-            'SATURDAY'  => 0,
-            'SUNDAY'    => 0,
+            'THURSDAY' => 0,
+            'FRIDAY' => 0,
+            'SATURDAY' => 0,
+            'SUNDAY' => 0,
         ];
 
         $weeklyOrders = Order::with('products')
-        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-        ->get();
+            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->get();
 
         foreach ($weeklyOrders as $order) {
             $orderDay = strtoupper($order->created_at->format('l'));
-            
+
             $orderSales = $order->total_price;
-            
+
             $salesTrend[$orderDay] += $orderSales;
         }
 
@@ -75,17 +75,16 @@ class AdminController extends Controller
         $totalOrders = Order::count();
 
         // total customers
-        $totalCustomers = User::where('role', '!=' ,'admin')->count();
-        
+        $totalCustomers = User::where('role', '!=', 'admin')->count();
 
         $latestOrders = Order::with('products')->latest()->get();
 
         return view('admin.dashboard.statistic', compact(
             'salesTrend',
             'totalSales',
-            'totalCustomers', 
+            'totalCustomers',
             'totalOrders',
-            'latestOrders'
-            ));
+            'latestOrders',
+        ));
     }
 }
