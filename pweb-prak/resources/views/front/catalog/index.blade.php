@@ -6,80 +6,58 @@
             
             <h2 class="text-4xl text-center mb-8 font-bold">Our Collection</h2>
             
-             {{-- Pagination --}}
+            {{-- Category Filter Buttons --}}
+            @php
+                $currentCategory = request()->route('category') ?? 'all';
+                $categories = [
+                    'all'      => 'All',
+                    'vandel'   => 'Vandel',
+                    'prasasti' => 'Prasasti',
+                    'kijangan' => 'Kijangan',
+                ];
+            @endphp
+
             <div class="w-full md:w-1/2 lg:w-5/12 h-7 mb-7.5 flex items-center justify-around gap-2">
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">All</button>
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">Vandel</button>
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">Prasasti</button>
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">Kijangan</button>
+                @foreach ($categories as $slug => $label)
+                    <a href="{{ route('catalog.index', ['category' => $slug]) }}"
+                       class="text-[14px] text-center cursor-pointer font-bold border border-primary rounded-full w-1/5 h-full flex items-center justify-center transition duration-200
+                              {{ $currentCategory === $slug
+                                  ? 'bg-primary text-white'
+                                  : 'bg-white text-primary hover:text-white hover:bg-primary' }}">
+                        {{ $label }}
+                    </a>
+                @endforeach
             </div>
 
             {{-- Search --}}
             <div class="mb-12.5 w-full flex flex-wrap gap-4 items-center justify-between text-base">
-                <form action="" id="search-bar" method="GET">
-                    <input type="text" name="search-text" id="search-text" placeholder="Search..." 
-                        class="px-2.5 h-8 w-auto text-base rounded-md border border-primary outline-none focus:ring-1 focus:ring-primary">
+                <form action="{{ route('catalog.index', ['category' => $currentCategory]) }}" id="search-bar" method="GET">
+                    <input type="text" name="search" id="search-text"
+                           value="{{ request('search') }}"
+                           placeholder="Search..." 
+                           class="px-2.5 h-8 w-auto text-base rounded-md border border-primary outline-none focus:ring-1 focus:ring-primary">
                 </form>
                 <span class="text-primary-hover font-medium">Menampilkan {{ count($products) }} Produk</span>
             </div>
             
             <div class="w-full flex flex-wrap gap-5 mb-10">
                 @forelse ($products as $product)
-                    {{-- Tambah onclick pada wrapper card &pop up --}}
-                    <div onclick="openProductModal({{ $product->id }}, '{{ addslashes($product->name) }}', '{{ $product->price }}', '{{ addslashes($product->category ?? '') }}', '{{ addslashes($product->description ?? '') }}', '{{ $product->image ? asset('storage/' . $product->image) : asset('assets/placeholder.png') }}')" class="cursor-pointer">
+                    <div onclick="openProductModal(
+                            {{ $product->id }},
+                            '{{ addslashes($product->name) }}',
+                            '{{ $product->price }}',
+                            '{{ addslashes($product->category ?? '') }}',
+                            '{{ addslashes($product->description ?? '') }}',
+                            '{{ $product->image ? asset('storage/' . $product->image) : asset('assets/placeholder.png') }}'
+                         )"
+                         class="cursor-pointer">
                         <x-product-card :product="$product" />
                     </div>
                 @empty
                     <div class="w-full text-center py-10">
-                        <p class="text-gray-500 text-lg">Belum ada produk yang tersedia.</p>
+                        <p class="text-[#333]">Belum ada produk yang tersedia.</p>
                     </div>
                 @endforelse
-                
-                {{-- Placeholder --}}
-                {{-- <!-- Card 1 -->
-                <div class="p-5 rounded-xl bg-white flex flex-col items-center shadow-lg transition duration-100 hover:-translate-y-1.5 hover:shadow-2xl hover:cursor-pointer w-[calc((100%-60px)/4)]">
-                    <img src="{{ asset('assets/vandel-produk.png') }}" alt="vandel" class="h-64 w-full object-cover rounded-md mb-4">
-                    <h3 class="mb-0 text-lg text-gray-800 font-semibold">Vandel</h3>
-                    <p class="mb-0 w-full h-24 text-gray-500 text-sm text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae qui velit veritatis quae ipsa incidunt veniam delectus mollitia</p>
-                    <p class="m-0 mr-auto text-gray-800 text-lg font-medium">Rp. 20.000 / Pcs</p>
-                    <button class="mt-5 h-10 w-full text-lg rounded-lg cursor-pointer text-white font-normal bg-primary transition-colors hover:bg-primary-hover">Pesan Sekarang</button>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="p-5 rounded-xl bg-white flex flex-col items-center shadow-lg transition duration-100 hover:-translate-y-1.5 hover:shadow-2xl hover:cursor-pointer w-[calc((100%-60px)/4)]">
-                    <img src="{{ asset('assets/kijangan-produk.png') }}" alt="kijangan" class="h-64 w-full object-cover rounded-md mb-4">
-                    <h3 class="mb-0 text-lg text-gray-800 font-semibold">Kijangan</h3>
-                    <p class="mb-0 w-full h-24 text-gray-500 text-sm text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, voluptas. Enim, labore rerum. </p>
-                    <p class="m-0 mr-auto text-gray-800 text-lg font-medium">Rp. 150.000 / Pcs</p>
-                    <button class="mt-5 h-10 w-full text-lg rounded-lg cursor-pointer text-white font-normal bg-primary transition-colors hover:bg-primary-hover">Pesan Sekarang</button>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="p-5 rounded-xl bg-white flex flex-col items-center shadow-lg transition duration-100 hover:-translate-y-1.5 hover:shadow-2xl hover:cursor-pointer w-[calc((100%-60px)/4)]">
-                    <img src="{{ asset('assets/batu-produk.png') }}" alt="batu" class="h-64 w-full object-cover rounded-md mb-4">
-                    <h3 class="mb-0 text-lg text-gray-800 font-semibold">Balok</h3>
-                    <p class="mb-0 w-full h-24 text-gray-500 text-sm text-left">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus molestias </p>
-                    <p class="m-0 mr-auto text-gray-800 text-lg font-medium">Rp. 15.000 / Pcs</p>
-                    <button class="mt-5 h-10 w-full text-lg rounded-lg cursor-pointer text-white font-normal bg-primary transition-colors hover:bg-primary-hover">Pesan Sekarang</button>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="p-5 rounded-xl bg-white flex flex-col items-center shadow-lg transition duration-100 hover:-translate-y-1.5 hover:shadow-2xl hover:cursor-pointer w-[calc((100%-60px)/4)]">
-                    <img src="{{ asset('assets/kijangan-produk.png') }}" alt="kijangan" class="h-64 w-full object-cover rounded-md mb-4">
-                    <h3 class="mb-0 text-lg text-gray-800 font-semibold">Kijangan</h3>
-                    <p class="mb-0 w-full h-24 text-gray-500 text-sm text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, voluptas. Enim</p>
-                    <p class="m-0 mr-auto text-gray-800 text-lg font-medium">Rp. 150.000 / Pcs</p>
-                    <button class="mt-5 h-10 w-full text-lg rounded-lg cursor-pointer text-white font-normal bg-primary transition-colors hover:bg-primary-hover">Pesan Sekarang</button>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="p-5 rounded-xl bg-white flex flex-col items-center shadow-lg transition duration-100 hover:-translate-y-1.5 hover:shadow-2xl hover:cursor-pointer w-[calc((100%-60px)/4)]">
-                    <img src="{{ asset('assets/vandel-produk.png') }}" alt="vandel" class="h-64 w-full object-cover rounded-md mb-4">
-                    <h3 class="mb-0 text-lg text-gray-800 font-semibold">Vandel</h3>
-                    <p class="mb-0 w-full h-24 text-gray-500 text-sm text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae qui velit veritatis quae ipsa incidunt veniam delectus mollitia</p>
-                    <p class="m-0 mr-auto text-gray-800 text-lg font-medium">Rp. 20.000 / Pcs</p>
-                    <button class="mt-5 h-10 w-full text-lg rounded-lg cursor-pointer text-white font-normal bg-primary transition-colors hover:bg-primary-hover">Pesan Sekarang</button>
-                </div> --}}
             </div>
         </section>
 
@@ -150,7 +128,6 @@
     {{-- SCRIPT --}}
     @push('scripts')
     <script>
-        // Simpan data produk yang sedang dibuka
         let _currentProduct = {};
 
         function openProductModal(id, name, price, category, description, image) {
@@ -170,7 +147,9 @@
             // Reset tombol keranjang
             const btn = document.getElementById('modal-cart-btn');
             btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13H5.4M10 21a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm8 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/></svg> Masukkan ke Keranjang`;
-            btn.className = btn.className.replace('bg-green-600', '').replace('hover:bg-green-700', '');
+            btn.disabled = false;
+            btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+            btn.classList.add('bg-primary', 'hover:bg-primary-hover');
 
             const modal = document.getElementById('product-modal');
             modal.classList.remove('hidden');
@@ -178,7 +157,6 @@
             document.body.classList.add('overflow-hidden');
         }
 
-        // Tambah ke keranjang (session) lalu redirect ke checkout
         document.getElementById('modal-cart-btn').addEventListener('click', function () {
             if (!_currentProduct.id) return;
 
@@ -203,8 +181,9 @@
             })
             .then(res => res.json())
             .then(() => {
-                btn.textContent = '✓ Ditambahkan! Menuju checkout...';
-                btn.classList.add('bg-green-600');
+                btn.innerHTML = '✓ Ditambahkan! Menuju checkout...';
+                btn.classList.remove('bg-primary', 'hover:bg-primary-hover');
+                btn.classList.add('bg-green-600', 'hover:bg-green-700');
                 setTimeout(() => {
                     window.location.href = '{{ route("checkout") }}';
                 }, 800);
@@ -225,8 +204,9 @@
 
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
-                document.getElementById('product-modal').classList.add('hidden');
-                document.getElementById('product-modal').classList.remove('flex');
+                const modal = document.getElementById('product-modal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
                 document.body.classList.remove('overflow-hidden');
             }
         });

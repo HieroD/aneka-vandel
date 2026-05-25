@@ -83,7 +83,7 @@
             </div>
         </section>
 
-        {{-- ===================== MODAL POPUP --}}
+        {{-- MODAL POPUP --}}
         <div
             id="product-modal"
             class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm px-4"
