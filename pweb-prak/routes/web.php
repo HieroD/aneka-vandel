@@ -49,9 +49,6 @@ Route::middleware('auth')->group(function () {
 
 // Verified user
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Tambahkan rute ini
-    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
-
     Route::get('/order/{product}', [OrderController::class, 'create'])->name('user.order.create');
     Route::post('/order/{product}', [OrderController::class, 'store'])->name('user.order.store');
 
@@ -72,5 +69,5 @@ Route::middleware(['can:admin'])->group(function () {
     Route::patch('/catalog/{product}', [ProductController::class, 'update'])->name('catalog.update');
     Route::delete('/catalog/{product}', [ProductController::class, 'destroy'])->name('catalog.destroy');
 
-    Route::patch('/order/{order}', [OrderController::class, 'update'])->name('order.up');
+    Route::patch('/order/{order}', [OrderController::class, 'update'])->name('order.update');
 });
