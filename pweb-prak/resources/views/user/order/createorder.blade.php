@@ -3,7 +3,7 @@
     {{-- TOP NAV --}}
     <div class="max-w-7xl mx-auto w-full px-6 pt-6 pb-2 flex items-center justify-between">
         <span class="text-xl font-bold text-[#0F3B79] font-[Outfit]">Aneka Vandel</span>
-        <a href="{{ route('catalog') }}"
+        <a href="{{ route('catalog.index') }}"
            class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#0F3B79] transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -139,9 +139,9 @@
                     <div class="flex items-center gap-3">
                         {{-- Thumbnail --}}
                         <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            @if(isset($cartItem) && $cartItem->product->image)
-                                <img src="{{ asset('storage/' . $cartItem->product->image) }}"
-                                     alt="{{ $cartItem->product->name }}"
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}"
+                                     alt="{{ $product->name }}"
                                      class="w-full h-full object-cover">
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -153,16 +153,14 @@
 
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-semibold text-gray-800 truncate">
-                                {{ $cartItem->product->name ?? '[Nama Produk]' }}
+                                {{ $product->name }}
                             </p>
                             {{-- Qty control --}}
                             <div class="flex items-center gap-2 mt-1.5">
                                 <button type="button" onclick="changeQty(-1)"
                                         class="w-7 h-7 border border-gray-300 rounded-md flex items-center justify-center text-gray-600
                                                hover:border-[#0F3B79] hover:text-[#0F3B79] transition text-base leading-none">−</button>
-                                <span id="qty-display" class="text-sm font-medium text-gray-700 w-5 text-center">
-                                    {{ $cartItem->quantity ?? 1 }}
-                                </span>
+                                <span id="qty-display" class="text-sm font-medium text-gray-700 w-5 text-center">1</span>
                                 <button type="button" onclick="changeQty(1)"
                                         class="w-7 h-7 border border-gray-300 rounded-md flex items-center justify-center text-gray-600
                                                hover:border-[#0F3B79] hover:text-[#0F3B79] transition text-base leading-none">+</button>
@@ -170,7 +168,7 @@
                         </div>
 
                         <span id="item-price" class="text-sm font-semibold text-[#0F3B79]">
-                            Rp {{ number_format(($cartItem->product->price ?? 250000) * ($cartItem->quantity ?? 1), 0, ',', '.') }}
+                            Rp {{ number_format($product->price, 0, ',', '.') }}
                         </span>
                     </div>
 
@@ -180,9 +178,7 @@
                     <div class="flex flex-col gap-2 text-sm text-gray-600">
                         <div class="flex justify-between">
                             <span>Subtotal</span>
-                            <span id="subtotal-display">
-                                Rp {{ number_format(($cartItem->product->price ?? 250000) * ($cartItem->quantity ?? 1), 0, ',', '.') }}
-                            </span>
+                            <span id="subtotal-display">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span id="shipping-label">Biaya Pengiriman (JNE)</span>
@@ -200,7 +196,7 @@
                     <div class="flex justify-between items-center">
                         <span class="font-bold text-gray-800 text-sm">Total Pembayaran</span>
                         <span id="total-display" class="font-bold text-[#0F3B79] text-base">
-                            Rp {{ number_format((($cartItem->product->price ?? 250000) * ($cartItem->quantity ?? 1)) + 25000, 0, ',', '.') }}
+                            Rp {{ number_format($product->price + 25000, 0, ',', '.') }}
                         </span>
                     </div>
 
@@ -227,13 +223,13 @@
     </div>
 
     <script>
-        const BASE_PRICE = {{ $cartItem->product->price ?? 250000 }};
-        let qty = {{ $cartItem->quantity ?? 1 }};
+        const BASE_PRICE = {{ $product->price }};
+        let qty = 1;
 
         const shippingOptions = {
-            jne:   { label: 'JNE',   cost: 25000,  display: 'Rp 25.000' },
-            jt:    { label: 'J&T',   cost: 30000,  display: 'Rp 30.000' },
-            cargo: { label: 'Cargo', cost: 0,      display: 'Rp 15.000/kg' },
+            jne:   { label: 'JNE',   cost: 25000, display: 'Rp 25.000' },
+            jt:    { label: 'J&T',   cost: 30000, display: 'Rp 30.000' },
+            cargo: { label: 'Cargo', cost: 0,     display: 'Rp 15.000/kg' },
         };
         let selectedKey = 'jne';
 
@@ -244,12 +240,12 @@
         function render() {
             const subtotal = BASE_PRICE * qty;
             const shipping = shippingOptions[selectedKey].cost;
-            document.getElementById('qty-display').textContent     = qty;
-            document.getElementById('item-price').textContent      = fmt(subtotal);
+            document.getElementById('qty-display').textContent      = qty;
+            document.getElementById('item-price').textContent       = fmt(subtotal);
             document.getElementById('subtotal-display').textContent = fmt(subtotal);
-            document.getElementById('shipping-label').textContent  = 'Biaya Pengiriman (' + shippingOptions[selectedKey].label + ')';
+            document.getElementById('shipping-label').textContent   = 'Biaya Pengiriman (' + shippingOptions[selectedKey].label + ')';
             document.getElementById('shipping-display').textContent = shippingOptions[selectedKey].display;
-            document.getElementById('total-display').textContent   = fmt(subtotal + shipping);
+            document.getElementById('total-display').textContent    = fmt(subtotal + shipping);
         }
 
         function changeQty(delta) {
@@ -258,16 +254,14 @@
         }
 
         function selectShipping(radio) {
-            // Reset all option labels
-            ['jne','jt','cargo'].forEach(key => {
+            ['jne', 'jt', 'cargo'].forEach(key => {
                 const el = document.getElementById('opt-' + key);
-                el.classList.remove('border-2','border-green-500','bg-green-50');
-                el.classList.add('border','border-gray-200');
+                el.classList.remove('border-2', 'border-green-500', 'bg-green-50');
+                el.classList.add('border', 'border-gray-200');
             });
-            // Highlight selected
             const sel = document.getElementById('opt-' + radio.value);
-            sel.classList.remove('border','border-gray-200');
-            sel.classList.add('border-2','border-green-500','bg-green-50');
+            sel.classList.remove('border', 'border-gray-200');
+            sel.classList.add('border-2', 'border-green-500', 'bg-green-50');
 
             selectedKey = radio.value;
             render();
@@ -286,14 +280,25 @@
 
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ route("order.store") }}';
+            form.action = '{{ route("user.order.store", $product) }}';
 
-            const fields = { _token: '{{ csrf_token() }}', nama, whatsapp, alamat, pengiriman: metode, quantity: qty };
+            const fields = {
+                _token:     '{{ csrf_token() }}',
+                nama,
+                whatsapp,
+                alamat,
+                pengiriman: metode,
+                quantity:   qty,
+            };
+
             for (const [k, v] of Object.entries(fields)) {
                 const inp = document.createElement('input');
-                inp.type = 'hidden'; inp.name = k; inp.value = v;
+                inp.type  = 'hidden';
+                inp.name  = k;
+                inp.value = v;
                 form.appendChild(inp);
             }
+
             document.body.appendChild(form);
             form.submit();
         }

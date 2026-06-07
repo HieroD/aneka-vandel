@@ -157,20 +157,10 @@
             document.body.classList.add('overflow-hidden');
         }
 
-        document.getElementById('modal-cart-btn').addEventListener('click', function () {
+            document.getElementById('modal-cart-btn').addEventListener('click', function () {
             if (!_currentProduct.id) return;
-
-            const btn = this;
-            btn.textContent = 'Menambahkan...';
-            btn.disabled = true;
-
-            fetch('/cart/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                },
+            window.location.href = `/order/${_currentProduct.id}`;
+            });
                 body: JSON.stringify({
                     id:    _currentProduct.id,
                     name:  _currentProduct.name,
