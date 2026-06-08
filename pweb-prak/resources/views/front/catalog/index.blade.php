@@ -161,14 +161,6 @@
             if (!_currentProduct.id) return;
             window.location.href = `/order/${_currentProduct.id}`;
             });
-                body: JSON.stringify({
-                    id:    _currentProduct.id,
-                    name:  _currentProduct.name,
-                    price: _currentProduct.price,
-                    image: _currentProduct.image,
-                    qty:   1
-                })
-            })
             .then(res => res.json())
             .then(() => {
                 btn.innerHTML = '✓ Ditambahkan! Menuju checkout...';
@@ -181,7 +173,6 @@
             .catch(() => {
                 btn.textContent = 'Gagal, coba lagi';
                 btn.disabled = false;
-            });
         });
 
         function closeProductModal(event) {
