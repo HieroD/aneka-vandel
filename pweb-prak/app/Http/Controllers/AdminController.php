@@ -13,20 +13,12 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
 
-        if ($admin->role !== 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
-
         return view('admin.dashboard.profile', compact('admin'));
     }
 
     public function orders()
     {
         $admin = Auth::user();
-
-        if ($admin->role !== 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
 
         $orders = Order::with('products')->latest()->get();
 
@@ -36,10 +28,6 @@ class AdminController extends Controller
     public function statistic()
     {
         $admin = Auth::user();
-
-        if ($admin->role !== 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
 
         // sales trend
         $startOfWeek = Carbon::now()->startOfWeek();
