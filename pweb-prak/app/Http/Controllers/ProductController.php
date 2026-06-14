@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -36,8 +37,12 @@ class ProductController extends Controller
             'category' => ['required'],
             'price' => ['required', 'integer'],
             'total_product' => ['required', 'integer'],
-            'img_path' => [],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['img_path'] = $request->file('image')->store('products', 'public');
+        }
 
         Product::create($validated);
 
@@ -57,8 +62,12 @@ class ProductController extends Controller
             'category' => ['required'],
             'price' => ['required', 'integer'],
             'total_product' => ['required', 'integer'],
-            'img_path' => [],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['img_path'] = $request->file('image')->store('products', 'public');
+        }
 
         $product->update($validated);
 
@@ -67,6 +76,10 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if ($product->img_path) {
+            Storage::disk('public')->delete($product->img_path);
+        }
+
         $product->delete();
 
         return back()->with('success', 'Product deleted!');

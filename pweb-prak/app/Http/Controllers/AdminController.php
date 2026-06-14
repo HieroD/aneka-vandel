@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,20 @@ class AdminController extends Controller
         $admin = Auth::user();
 
         return view('admin.dashboard.profile', compact('admin'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $admin = Auth::user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'max:255'],
+            'phone' => ['nullable', 'max:15'],
+        ]);
+
+        $admin->update($validated);
+
+        return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui!');
     }
 
     public function orders()

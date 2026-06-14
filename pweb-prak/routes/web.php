@@ -60,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Admin
 Route::middleware(['can:admin'])->group(function () {
     Route::get('/dashboard/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::put('/dashboard/admin/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
     Route::get('/dashboard/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/dashboard/admin/statistic', [AdminController::class, 'statistic'])->name('admin.statistic');
 
