@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -16,19 +17,20 @@ class GoogleController extends Controller
     public function handleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+        $googleUser = Socialite::driver('google')->user();
 
-            $user = User::updateOrcreate([
-                'gauth_id' => $googleUser->id,
-            ], [
-                'name' => $googleUser->name,
-                'email' => $googleUser->email,
-                'gauth_id' => $googleUser->id,
-                'gauth_type' => 'google',
-                'password' => bcrypt(str()->random(16)),
-                'role' => 'member',
-                'email_verified_at' => now(),
-            ]);
+        $user = User::updateOrCreate([
+            'email' => $googleUser->email,
+        ], [
+            'name' => $googleUser->name,
+
+            'gauth_id' => $googleUser->id,
+            'gauth_type' => 'google',
+            'password' => bcrypt(Str::random(16)),
+            'role' => 'member',
+            'email_verified_at' => now(),
+        ]);
+
 
             Auth::login($user);
 
