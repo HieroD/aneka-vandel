@@ -8,7 +8,7 @@
                 <h1 id="hero-title" class="m-1.25 text-white text-[65px] font-bold leading-[1.2] mb-3.75">Vandel & Plakat <br>Berkualitas Tinggi</h1>
                 <p id="hero-desc" class="m-1.25 text-white text-[18px] font-light mb-7.5">Solusi terbaik untuk penghargaan, kenang-kenangan, dan kebutuhan anda</p>
             </div>
-            <a href="#pesan">
+            <a href="{{ route('catalog.index', ['category' => 'all']) }}">
                 <button class="cursor-pointer py-3 px-7.5 rounded-[30px] border-none bg-primary text-[16px] text-white transition duration-300 hover:bg-primary-hover">Pesan Sekarang</button>
             </a>
         </section>
