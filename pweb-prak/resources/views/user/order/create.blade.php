@@ -159,7 +159,7 @@
                             <div class="flex items-center gap-2 mt-1.5">
                                 <button type="button" onclick="changeQty(-1)"
                                         class="w-7 h-7 border border-gray-300 rounded-md flex items-center justify-center text-gray-600
-                                               hover:border-[#0F3B79] hover:text-[#0F3B79] transition text-base leading-none">−</button>
+                                               hover:border-[#0F3B79] hover:text-[#0F3B79] transition text-base leading-none">-</button>
                                 <span id="qty-display" class="text-sm font-medium text-gray-700 w-5 text-center">1</span>
                                 <button type="button" onclick="changeQty(1)"
                                         class="w-7 h-7 border border-gray-300 rounded-md flex items-center justify-center text-gray-600
