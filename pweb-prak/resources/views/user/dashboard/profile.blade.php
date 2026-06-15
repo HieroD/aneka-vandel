@@ -8,8 +8,10 @@
 
         {{-- PROFILE FORM --}}
         <main class="flex-1 rounded-2xl bg-white p-8 shadow-sm">
-            <h1 class="mb-1 text-2xl font-bold text-gray-800">Profil Saya</h1>
-            <p class="mb-8 text-sm text-gray-500">Perbarui informasi profil Anda</p>
+            <h1 class="mb-1 text-2xl font-bold text-text">Profil Saya</h1>
+            <p class="mb-8 text-sm text-text-muted">Perbarui informasi profil Anda</p>
+
+            <x-flash-messages />
 
             <div class="flex gap-10">
                 {{-- Form Fields --}}
@@ -18,41 +20,53 @@
                     @method('PUT')
 
                     <div class="mb-5 flex items-center gap-4">
-                        <label for="name" class="w-36 shrink-0 text-sm font-medium text-gray-700">Nama Lengkap</label>
-                        <input type="text" id="name" name="name"
+                        <label for="name" class="w-36 shrink-0 text-sm font-medium text-text">Nama Lengkap</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
                             value="{{ old('name', auth()->user()->name ?? '') }}"
                             placeholder="Masukkan nama lengkap Anda"
-                            class="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 focus:outline-none">
-                        @error('name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                            class="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                        >
+                        @error('name') <p class="mt-1 text-xs text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="mb-5 flex items-center gap-4">
-                        <label for="email" class="w-36 shrink-0 text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email"
+                        <label for="email" class="w-36 shrink-0 text-sm font-medium text-text">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
                             value="{{ old('email', auth()->user()->email ?? '') }}"
                             placeholder="contoh@email.com"
-                            class="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 focus:outline-none">
-                        @error('email') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                            class="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                        >
+                        @error('email') <p class="mt-1 text-xs text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="mb-8 flex items-center gap-4">
-                        <label for="phone" class="w-36 shrink-0 text-sm font-medium text-gray-700">Nomor Telepon</label>
-                        <input type="tel" id="phone" name="phone"
+                        <label for="phone" class="w-36 shrink-0 text-sm font-medium text-text">Nomor Telepon</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
                             value="{{ old('phone', auth()->user()->phone ?? '') }}"
                             placeholder="08xxxxxxxxxx"
-                            class="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-gray-300 focus:outline-none">
-                        @error('phone') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                            class="flex-1 rounded-lg border border-border px-3 py-2 text-sm text-text focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                        >
+                        @error('phone') <p class="mt-1 text-xs text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <button type="submit" class="cursor-pointer text-sm font-medium text-blue-600 transition hover:text-blue-700">Simpan Perubahan</button>
-                        <a href="{{ url()->previous() }}" class="text-sm font-medium text-red-500 transition hover:text-red-600">Batal</a>
+                        <x-button type="submit" variant="primary">Simpan Perubahan</x-button>
+                        <a href="{{ url()->previous() }}" class="text-sm font-medium text-danger transition hover:text-danger-hover">Batal</a>
                     </div>
                 </form>
 
                 {{-- Foto Profil --}}
                 <div class="flex w-52 shrink-0 flex-col items-center gap-4">
-                    <p class="text-sm font-medium text-gray-700">Foto Profil</p>
+                    <p class="text-sm font-medium text-text">Foto Profil</p>
                     <div class="avatar-circle">
                         @if(auth()->user()->avatar ?? false)
                             <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="h-full w-full object-cover">
@@ -65,10 +79,20 @@
                         @endif
                     </div>
 
-                    <form method="">
+                    {{-- TODO: backend — form action + route for avatar upload is not yet wired --}}
+                    <form method="post" enctype="multipart/form-data" action="" class="contents">
                         @csrf
-                        <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*" onchange="document.getElementById('avatar-form').submit()">
-                        <label for="avatar-input" class="btn-pilih-foto">Pilih Foto</label>
+                        <input
+                            type="file"
+                            name="avatar"
+                            id="avatar-input"
+                            class="hidden"
+                            accept="image/*"
+                            onchange="this.form.submit()"
+                        >
+                        <label for="avatar-input">
+                            <x-button variant="secondary" :type="'button'">Pilih Foto</x-button>
+                        </label>
                     </form>
                 </div>
             </div>
