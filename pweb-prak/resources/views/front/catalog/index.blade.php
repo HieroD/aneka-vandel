@@ -1,6 +1,6 @@
 <x-layout title="Catalog - Aneka Vandel">
     <!-- MAIN -->
-    <main class="m-0 flex grow flex-col bg-white font-outfit text-gray-800">
+    <main class="m-0 flex grow flex-col bg-white font-outfit text-text">
         <section style="background-image: url('{{ asset('assets/catalog-background.png') }}');"
          class="flex h-auto w-full grow flex-col items-center justify-center bg-cover px-[10%] py-12.5">
 
@@ -48,14 +48,14 @@
                             '{{ $product->price }}',
                             '{{ addslashes($product->category ?? '') }}',
                             '{{ addslashes($product->description ?? '') }}',
-                            '{{ $product->image ? asset('storage/' . $product->image) : asset('assets/placeholder.png') }}'
+                            '{{ $product->img_path ? asset('storage/' . $product->img_path) : asset('assets/placeholder.png') }}'
                          )"
                          class="w-full cursor-pointer sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-60px)/4)]">
                         <x-product-card :product="$product" />
                     </div>
                 @empty
                     <div class="w-full py-10 text-center">
-                        <p class="text-[#333]">Belum ada produk yang tersedia.</p>
+                        <p class="text-text">Belum ada produk yang tersedia.</p>
                     </div>
                 @endforelse
             </div>
@@ -73,7 +73,7 @@
                 onclick="event.stopPropagation()"
             >
                 {{-- Kolom Kiri: Gambar --}}
-                <div class="relative flex min-h-64 items-center justify-center bg-gray-50 p-6 md:w-[45%]">
+                <div class="relative flex min-h-64 items-center justify-center bg-surface-2 p-6 md:w-[45%]">
                     <span id="modal-category" class="absolute top-4 left-4 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white"></span>
                     <img id="modal-image" src="" alt="Foto Produk" class="h-60 w-full rounded-lg object-contain">
                 </div>
@@ -83,15 +83,15 @@
                     {{-- Tombol tutup --}}
                     <button
                         onclick="closeProductModal()"
-                        class="absolute top-4 right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-100 text-xl leading-none text-gray-500 transition hover:bg-gray-200 hover:text-gray-800"
+                        class="absolute top-4 right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-surface-2 text-xl leading-none text-text-subtle transition hover:bg-border hover:text-text"
                     >&times;</button>
 
                     <div>
-                        <h2 id="modal-name" class="mb-1 pr-8 font-outfit text-2xl font-bold text-gray-800"></h2>
+                        <h2 id="modal-name" class="mb-1 pr-8 font-outfit text-2xl font-bold text-text"></h2>
                         <p id="modal-price" class="mb-4 font-outfit text-xl font-semibold text-primary"></p>
-                        <hr class="mb-4 border-gray-200">
-                        <p class="mb-1 text-xs font-semibold tracking-widest text-gray-400 uppercase">Deskripsi</p>
-                        <p id="modal-description" class="font-outfit text-sm leading-relaxed text-gray-600"></p>
+                        <hr class="mb-4 border-border">
+                        <p class="mb-1 text-xs font-semibold tracking-widest text-text-subtle uppercase">Deskripsi</p>
+                        <p id="modal-description" class="font-outfit text-sm leading-relaxed text-text-muted"></p>
                     </div>
 
                     {{-- Tombol Aksi --}}
@@ -112,7 +112,7 @@
                         </button>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <div class="flex items-center gap-2 text-xs text-text-subtle">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M1.5 8.25h13.5m0 0V6a1.5 1.5 0 0 1 1.5-1.5h3a3 3 0 0 1 3 3v9a1.5 1.5 0 0 1-1.5 1.5H18m-3 0H6m12 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zM6 18a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
                         </svg>
@@ -148,7 +148,7 @@
             const btn = document.getElementById('modal-cart-btn');
             btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13H5.4M10 21a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm8 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/></svg> Masukkan ke Keranjang`;
             btn.disabled = false;
-            btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+            btn.classList.remove('bg-success', 'hover:bg-success-hover');
             btn.classList.add('bg-primary', 'hover:bg-primary-hover');
 
             const modal = document.getElementById('product-modal');
@@ -183,7 +183,7 @@
             .then(() => {
                 btn.innerHTML = '✓ Ditambahkan! Menuju checkout...';
                 btn.classList.remove('bg-primary', 'hover:bg-primary-hover');
-                btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                btn.classList.add('bg-success', 'hover:bg-success-hover');
 
                 setTimeout(() => {
                     let checkoutUrl = "{{ route('user.order.create', ':id') }}";
@@ -194,7 +194,7 @@
             .catch(() => {
                 btn.textContent = 'Gagal, coba lagi';
                 btn.disabled = false;
-                btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                btn.classList.remove('bg-success', 'hover:bg-success-hover');
                 btn.classList.add('bg-primary', 'hover:bg-primary-hover');
             });
         });
