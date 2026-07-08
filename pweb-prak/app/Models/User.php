@@ -13,7 +13,7 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'email', 'password', 'phone', 'alamat', 'role', 'gauth_id', 'gauth_type', 'avatar', 'email_verified_at'];
 
     protected $hidden = ['password', 'remember_token'];
 

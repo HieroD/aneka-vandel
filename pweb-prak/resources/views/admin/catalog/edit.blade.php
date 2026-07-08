@@ -114,7 +114,7 @@
         <div class="mt-8 pt-6 border-t border-border">
             <p class="text-xs text-text-subtle mb-3">Zona Bahaya</p>
             <form action="{{ route('catalog.destroy', $product->id) }}" method="POST"
-                onsubmit="return confirm('Yakin ingin menghapus produk \'{{ addslashes($product->name) }}\'? Tindakan ini tidak bisa dibatalkan.')">
+                onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}? Tindakan ini tidak bisa dibatalkan.')"
                 @csrf
                 @method('DELETE')
                 <x-button type="submit" variant="danger" class="w-full">Hapus Produk Ini</x-button>

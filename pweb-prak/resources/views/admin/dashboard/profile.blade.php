@@ -3,10 +3,9 @@
     <h1 class="text-[22px] font-bold text-text mb-1">Profil Admin</h1>
     <p class="text-[13px] text-text-subtle mb-7">Perbarui informasi profil Anda</p>
 
-    {{-- TODO: backend — form action + route for profile update is not yet wired --}}
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.profile.update') }}" enctype="multipart/form-data">
         @csrf
-        @method('PATCH')
+        @method('PUT')
 
         <div class="grid grid-cols-[1fr_260px] gap-10 items-start">
 
@@ -66,8 +65,8 @@
                 <div id="fotoPreview"
                     class="w-[120px] h-[120px] rounded-full bg-surface-2 mx-auto mb-4 flex items-center justify-center overflow-hidden border-[3px] border-border">
 
-                    @if(auth()->user()->foto ?? false)
-                        <img src="{{ asset('storage/' . auth()->user()->foto) }}"
+                    @if(auth()->user()->avatar ?? false)
+                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}"
                             class="w-full h-full object-cover" />
                     @else
                         <div class="text-text-subtle">
@@ -80,10 +79,13 @@
 
                 </div>
 
-                <input type="file" id="fotoInput" name="foto" accept="image/*"
-                    class="hidden"
-                    data-image-preview
-                />
+                <form method="post" enctype="multipart/form-data" action="{{ route('admin.avatar.update') }}" class="contents">
+                    @csrf
+                    <input type="file" id="fotoInput" name="avatar" accept="image/*"
+                        class="hidden"
+                        onchange="this.form.submit()"
+                    />
+                </form>
 
                 <x-button variant="secondary" size="md" onclick="document.getElementById('fotoInput').click()" class="cursor-pointer">
                     Pilih Foto

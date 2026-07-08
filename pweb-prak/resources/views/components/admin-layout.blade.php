@@ -113,7 +113,8 @@
                 var status = update.dataset.statusUpdate;
                 var form = document.getElementById('statusForm');
                 if (form && orderId && status) {
-                    form.action = '/order/' + orderId;
+                    var routeTemplate = '{{ route('order.update', ':id') }}';
+                    form.action = routeTemplate.replace(':id', orderId);
                     document.getElementById('statusInput').value = status;
                     form.submit();
                 }

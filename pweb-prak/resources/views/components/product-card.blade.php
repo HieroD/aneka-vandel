@@ -2,7 +2,7 @@
 
 <div class="flex h-full w-full flex-col rounded-xl bg-white p-5 shadow-lg transition duration-100 hover:-translate-y-1.5 hover:shadow-2xl hover:cursor-pointer">
     {{-- Image --}}
-    <img src="{{ asset($product->img_path) }}" alt="{{ $product->name }}" class="h-64 w-full object-cover rounded-md mb-4">
+    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="h-64 w-full object-cover rounded-md mb-4">
 
     {{-- Name  --}}
     <h3 class="mb-0 text-lg text-gray-800 font-semibold">{{ $product->name }}</h3>

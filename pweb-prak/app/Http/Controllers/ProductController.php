@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +24,9 @@ class ProductController extends Controller
 
         $products = $query->get();
 
-        return view('front.catalog.index', compact('products'));
+        $waNumber = User::where('role', 'admin')->value('phone') ?? '6281234567890';
+
+        return view('front.catalog.index', compact('products', 'waNumber'));
     }
 
     public function create()
@@ -67,6 +71,10 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
+            if ($product->img_path) {
+                Storage::disk('public')->delete($product->img_path);
+            }
+
             $validated['img_path'] = $request->file('image')->store('products', 'public');
         }
 
@@ -77,11 +85,15 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if ($product->img_path) {
-            Storage::disk('public')->delete($product->img_path);
-        }
+        try {
+            if ($product->img_path) {
+                Storage::disk('public')->delete($product->img_path);
+            }
 
-        $product->delete();
+            $product->delete();
+        } catch (QueryException $e) {
+            return back()->with('error', 'Produk tidak dapat dihapus karena masih memiliki riwayat pesanan.');
+        }
 
         return back()->with('success', 'Product deleted!');
     }

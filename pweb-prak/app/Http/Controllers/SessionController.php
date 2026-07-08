@@ -26,7 +26,7 @@ class SessionController extends Controller
         }
 
         return back()->withErrors([
-            'match' => 'Email or password does not match',
+            'email' => 'Email atau password tidak cocok.',
         ])->onlyInput('email');
     }
 

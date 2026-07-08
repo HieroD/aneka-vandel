@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -31,16 +32,41 @@ class AdminController extends Controller
         return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui!');
     }
 
-    public function orders()
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ]);
+
+        $admin = Auth::user();
+
+        if ($admin->avatar) {
+            Storage::disk('public')->delete($admin->avatar);
+        }
+
+        $admin->update([
+            'avatar' => $request->file('avatar')->store('avatars', 'public'),
+        ]);
+
+        return back()->with('success', 'Foto profil berhasil diperbarui!');
+    }
+
+    public function orders(Request $request)
     {
         $admin = Auth::user();
 
-        $orders = Order::with('products', 'user')->latest()->get();
+        $orders = Order::with('products', 'user')
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('search'), function ($q) use ($request) {
+                $q->where('id', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+            })
+            ->latest()->get();
 
         return view('admin.dashboard.orders', compact('orders'));
     }
 
-    public function statistic()
+    public function statistic(Request $request)
     {
         $admin = Auth::user();
 
@@ -80,7 +106,13 @@ class AdminController extends Controller
         // total customers
         $totalCustomers = User::where('role', '!=', 'admin')->count();
 
-        $recentOrders = Order::with('products', 'user')->latest()->get();
+        $recentOrders = Order::with('products', 'user')
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('search'), function ($q) use ($request) {
+                $q->where('id', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+            })
+            ->latest()->get();
 
         return view('admin.dashboard.statistic', compact(
             'salesTrend',

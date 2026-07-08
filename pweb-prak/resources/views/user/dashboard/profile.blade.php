@@ -79,8 +79,7 @@
                         @endif
                     </div>
 
-                    {{-- TODO: backend — form action + route for avatar upload is not yet wired --}}
-                    <form method="post" enctype="multipart/form-data" action="" class="contents">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('user.avatar.update') }}" class="contents">
                         @csrf
                         <input
                             type="file"

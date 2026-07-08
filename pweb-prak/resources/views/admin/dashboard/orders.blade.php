@@ -36,6 +36,7 @@
                 <x-select
                     name="status"
                     placeholder="Status: Semua"
+                    onchange="document.getElementById('filterForm').submit()"
                     :options="[
                         'menunggu' => 'Menunggu Pembayaran',
                         'dikemas'  => 'Dikemas',

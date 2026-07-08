@@ -28,11 +28,13 @@
                 <a href="/about" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">About</a>
                 <a href="{{ route('catalog.index', ['category' => 'all']) }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Catalog</a>
 
-                @if(auth()->user() && auth()->user()->role === 'admin')
-                    <a href="{{ route('admin.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Admin</a>
-                @else
-                    <a href="{{ route('user.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Dashboard</a>
-                @endif
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Admin</a>
+                    @else
+                        <a href="{{ route('user.profile') }}" class="text-[#424242] p-2.5 ml-5 no-underline text-[18px] hover:text-primary transition-colors">Dashboard</a>
+                    @endif
+                @endauth
 
                 @guest
                     <a href=" {{ route('login') }}"><button class="py-2 px-6.25 ml-3.75 rounded-full border-none cursor-pointer text-white font-normal text-[16px] bg-primary hover:bg-primary-hover transition-colors">Sign in</button></a>

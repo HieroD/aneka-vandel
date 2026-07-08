@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['user_id', 'status', 'order_date', 'ship_date', 'completion_date', 'nama', 'whatsapp', 'alamat', 'shipping_method', 'shipping_cost'];
 
     protected $table = 'orders';
 

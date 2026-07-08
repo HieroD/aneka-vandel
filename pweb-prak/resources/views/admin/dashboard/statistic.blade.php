@@ -3,52 +3,59 @@
     <h1 class="text-[22px] font-bold text-text mb-6">Statistik Penjualan</h1>
 
     {{-- FILTER BAR --}}
-    <div class="flex items-center gap-3 mb-7 flex-wrap">
+    <form method="GET" action="" id="filterForm">
+        <div class="flex items-center gap-3 mb-7 flex-wrap">
 
-        <div class="relative flex-1 min-w-[180px]">
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-text-subtle w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Cari pesanan..."
-                class="w-full pl-9 pr-4 py-[9px] border border-border rounded-lg text-[13px] text-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/40"
-            />
-        </div>
+            <div class="relative flex-1 min-w-[180px]">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-text-subtle w-[15px] h-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                    type="text"
+                    name="search"
+                    id="searchInput"
+                    value="{{ request('search') }}"
+                    placeholder="Cari pesanan..."
+                    data-search-debounce
+                    data-form-id="filterForm"
+                    class="w-full pl-9 pr-4 py-[9px] border border-border rounded-lg text-[13px] text-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/40"
+                />
+            </div>
 
-        <div class="flex items-center gap-1.5 px-4 py-[9px] border border-border rounded-lg bg-white text-[13px] text-text-muted cursor-pointer">
-            <svg class="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            Pilih Tanggal
-            <svg class="w-[12px] h-[12px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9" />
-            </svg>
-        </div>
+            <div class="flex items-center gap-1.5 px-4 py-[9px] border border-border rounded-lg bg-white text-[13px] text-text-muted cursor-pointer">
+                <svg class="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Pilih Tanggal
+                <svg class="w-[12px] h-[12px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
 
-        <div class="w-56">
-            <x-select
-                name="status"
-                placeholder="Status: Semua"
-                :options="[
-                    'selesai'  => 'Selesai',
-                    'dikirim'  => 'Dikirim',
-                    'dikemas'  => 'Dikemas',
-                    'menunggu' => 'Menunggu Pembayaran',
-                ]"
-            />
+            <div class="w-56">
+                <x-select
+                    name="status"
+                    placeholder="Status: Semua"
+                    onchange="document.getElementById('filterForm').submit()"
+                    :options="[
+                        'selesai'  => 'Selesai',
+                        'dikirim'  => 'Dikirim',
+                        'dikemas'  => 'Dikemas',
+                        'menunggu' => 'Menunggu Pembayaran',
+                    ]"
+                />
+            </div>
         </div>
-    </div>
+    </form>
 
     {{-- STATS --}}
     <div class="grid grid-cols-[1fr_220px] gap-6 mb-8 items-start">
 
-        {{-- CHART (TODO: backend — heights are a hardcoded stub; replace with real data) --}}
+        {{-- CHART --}}
         <div class="bg-white rounded-[14px] border border-border p-6">
             <div class="flex justify-between mb-5">
                 <div>
@@ -97,7 +104,6 @@
                     <div class="text-[11px] font-semibold text-text-subtle uppercase">Total Sales</div>
                     <div class="text-[18px] font-extrabold text-text">Rp {{ number_format($totalSales ?? 428900, 0, ',', '.') }}</div>
                 </div>
-                <span class="absolute top-3 right-4 text-[11px] font-bold bg-success-soft text-success px-2 py-[2px] rounded-full">+12.8%</span>
             </div>
 
             <div class="bg-white rounded-[14px] border border-border p-4 flex items-center gap-3 relative">
@@ -111,7 +117,6 @@
                     <div class="text-[11px] font-semibold text-text-subtle uppercase">Total Orders</div>
                     <div class="text-[18px] font-extrabold text-text">{{ $totalOrders ?? 67 }}</div>
                 </div>
-                <span class="absolute top-3 right-4 text-[11px] font-bold bg-success-soft text-success px-2 py-[2px] rounded-full">+6</span>
             </div>
 
             <div class="bg-white rounded-[14px] border border-border p-4 flex items-center gap-3 relative">
@@ -125,7 +130,6 @@
                     <div class="text-[11px] font-semibold text-text-subtle uppercase">Total Customers</div>
                     <div class="text-[18px] font-extrabold text-text">{{ $totalCustomers ?? 44 }}</div>
                 </div>
-                <span class="absolute top-3 right-4 text-[11px] font-bold bg-success-soft text-success px-2 py-[2px] rounded-full">+3</span>
             </div>
 
         </div>

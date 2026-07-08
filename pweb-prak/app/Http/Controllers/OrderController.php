@@ -7,11 +7,16 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
     public function create(Product $product)
     {
+        if ($product->total_product <= 0) {
+            return redirect()->route('catalog.index')->with('error', 'Maaf, produk ini sedang habis.');
+        }
+
         return view('user.order.create', compact('product'));
     }
 
@@ -31,6 +36,14 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
 
+            $lockedProduct = Product::lockForUpdate()->findOrFail($product->id);
+
+            if ($validated['total_order'] > $lockedProduct->total_product) {
+                DB::rollBack();
+
+                return back()->withErrors(['total_order' => 'Stok tidak mencukupi.']);
+            }
+
             $order = Auth::user()->orders()->create([
                 'status' => 'menunggu',
                 'order_date' => now(),
@@ -40,12 +53,12 @@ class OrderController extends Controller
                 'shipping_method' => $validated['pengiriman'],
             ]);
 
-            $order->products()->attach($product->id, [
+            $order->products()->attach($lockedProduct->id, [
                 'total_order' => $validated['total_order'],
                 'total_price' => $total_price,
             ]);
 
-            $product->decrement('total_product', $validated['total_order']);
+            $lockedProduct->decrement('total_product', $validated['total_order']);
 
             DB::commit();
 
@@ -62,7 +75,7 @@ class OrderController extends Controller
     {
 
         $validated = $request->validate([
-            'status' => 'sometimes|string',
+            'status' => ['sometimes', Rule::in(['menunggu', 'dikemas', 'dikirim', 'selesai'])],
             'order_date' => 'sometimes|date',
             'completion_date' => 'sometimes|date',
         ]);

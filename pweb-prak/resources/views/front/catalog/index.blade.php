@@ -48,7 +48,7 @@
                             '{{ $product->price }}',
                             '{{ addslashes($product->category ?? '') }}',
                             '{{ addslashes($product->description ?? '') }}',
-                            '{{ $product->img_path ? asset('storage/' . $product->img_path) : asset('assets/placeholder.png') }}'
+                            '{{ $product->image_url }}'
                          )"
                          class="w-full cursor-pointer sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-60px)/4)]">
                         <x-product-card :product="$product" />
@@ -108,7 +108,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13H5.4M10 21a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm8 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/>
                             </svg>
-                            Masukkan ke Keranjang
+                            Beli Sekarang
                         </button>
                     </div>
 
@@ -140,13 +140,13 @@
             document.getElementById('modal-image').src               = image;
             document.getElementById('modal-image').alt               = name;
 
-            const waNumber = '{{ config("app.wa_number", "6281234567890") }}';
+            const waNumber = '{{ $waNumber }}';
             const waText   = encodeURIComponent(`Halo, saya ingin memesan: ${name} (Rp ${Number(price).toLocaleString('id-ID')})`);
             document.getElementById('modal-wa-btn').href = `https://wa.me/${waNumber}?text=${waText}`;
 
-            // Reset tombol keranjang
+            // Reset tombol beli
             const btn = document.getElementById('modal-cart-btn');
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13H5.4M10 21a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm8 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/></svg> Masukkan ke Keranjang`;
+            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13H5.4M10 21a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm8 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/></svg> Beli Sekarang`;
             btn.disabled = false;
             btn.classList.remove('bg-success', 'hover:bg-success-hover');
             btn.classList.add('bg-primary', 'hover:bg-primary-hover');
@@ -159,44 +159,8 @@
 
         document.getElementById('modal-cart-btn').addEventListener('click', function () {
             if (!_currentProduct.id) return;
-
-            const btn = this;
-            btn.innerHTML = 'Memproses...';
-            btn.disabled = true;
-
-            // Pastikan ada pemanggilan fetch() di sini
-            fetch('/cart', { // Ganti '/cart' dengan endpoint API kamu yang sebenarnya
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Penting untuk Laravel
-                },
-                body: JSON.stringify({
-                    id:    _currentProduct.id,
-                    name:  _currentProduct.name,
-                    price: _currentProduct.price,
-                    image: _currentProduct.image,
-                    qty:   1
-                })
-            })
-            .then(res => res.json())
-            .then(() => {
-                btn.innerHTML = '✓ Ditambahkan! Menuju checkout...';
-                btn.classList.remove('bg-primary', 'hover:bg-primary-hover');
-                btn.classList.add('bg-success', 'hover:bg-success-hover');
-
-                setTimeout(() => {
-                    let checkoutUrl = "{{ route('user.order.create', ':id') }}";
-                    checkoutUrl = checkoutUrl.replace(':id', _currentProduct.id);
-                    window.location.href = checkoutUrl;
-                }, 800);
-            })
-            .catch(() => {
-                btn.textContent = 'Gagal, coba lagi';
-                btn.disabled = false;
-                btn.classList.remove('bg-success', 'hover:bg-success-hover');
-                btn.classList.add('bg-primary', 'hover:bg-primary-hover');
-            });
+            let checkoutUrl = "{{ route('user.order.create', ':id') }}";
+            window.location.href = checkoutUrl.replace(':id', _currentProduct.id);
         });
 
         function closeProductModal(event) {

@@ -25,7 +25,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
     Route::get('/login', [SessionController::class, 'create'])->name('login');
-    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
+    Route::post('/login', [SessionController::class, 'store'])->middleware('throttle:5,1')->name('login.store');
 
     Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->name('password.request');
     Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
@@ -53,6 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::put('/dashboard/profile', [UserController::class, 'update'])->name('user.update');
+    Route::post('/dashboard/profile/avatar', [UserController::class, 'updateAvatar'])->name('user.avatar.update');
     Route::get('/dashboard/orders', [UserController::class, 'orders'])->name('user.orders');
 });
 
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['can:admin'])->group(function () {
     Route::get('/dashboard/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::put('/dashboard/admin/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::post('/dashboard/admin/profile/avatar', [AdminController::class, 'updateAvatar'])->name('admin.avatar.update');
     Route::get('/dashboard/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/dashboard/admin/statistic', [AdminController::class, 'statistic'])->name('admin.statistic');
 
