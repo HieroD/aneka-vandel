@@ -19,7 +19,7 @@ class ProductController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%'.$request->search.'%');
+            $query->where('name', 'like', '%' . $request->search . '%');
         }
 
         $products = $query->get();
@@ -41,9 +41,11 @@ class ProductController extends Controller
             'description' => ['required'],
             'category' => ['required'],
             'price' => ['required', 'integer'],
-            'total_product' => ['required', 'integer'],
+            'total_product' => ['nullable', 'integer'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
+
+        $validated['total_product'] = $validated['total_product'] ?? 0;
 
         if ($request->hasFile('image')) {
             $validated['img_path'] = $request->file('image')->store('products', 'public');
@@ -51,7 +53,17 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-        return back()->with('success', 'Product created!');
+        return redirect()->route('catalog.pick')->with('success', 'Produk berhasil ditambahkan!');
+    }
+
+    public function pick(Request $request)
+    {
+        $products = Product::query()
+            ->when($request->filled('search'), fn($q) => $q->where('name', 'like', '%' . $request->search . '%'))
+            ->latest()
+            ->get();
+
+        return view('admin.catalog.pick', compact('products'));
     }
 
     public function edit(Product $product)
@@ -66,9 +78,11 @@ class ProductController extends Controller
             'description' => ['required'],
             'category' => ['required'],
             'price' => ['required', 'integer'],
-            'total_product' => ['required', 'integer'],
+            'total_product' => ['nullable', 'integer'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
+
+        $validated['total_product'] = $validated['total_product'] ?? $product->total_product;
 
         if ($request->hasFile('image')) {
             if ($product->img_path) {
