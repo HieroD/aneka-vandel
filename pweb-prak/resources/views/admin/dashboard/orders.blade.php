@@ -13,10 +13,22 @@
                 value="{{ request('search') }}"
                 data-search-debounce
                 data-form-id="filterForm"
-                class="flex-1 min-w-[200px] px-3.5 py-[9px] border border-border rounded-lg text-[13px] text-text-muted placeholder:text-text-subtle focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/40"
-            />
+                class="flex-1 min-w-[200px] px-3.5 py-[9px] border border-border rounded-lg text-[13px] text-text-muted placeholder:text-text-subtle focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/40" />
 
-            
+            <div class="relative w-48">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-text-subtle pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                <input
+                    type="date"
+                    name="date"
+                    value="{{ request('date') }}"
+                    onchange="document.getElementById('filterForm').submit()"
+                    class="w-full pl-9 pr-3 py-[9px] border border-border rounded-lg text-[13px] text-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/40" />
+            </div>
 
             <div class="w-56">
                 <x-select
@@ -28,97 +40,93 @@
                         'dikemas'  => 'Dikemas',
                         'dikirim'  => 'Dikirim',
                         'selesai'  => 'Selesai',
-                    ]"
-                />
+                    ]" />
             </div>
 
         </div>
     </form>
 
-    <div class="bg-white rounded-xl border border-border overflow-hidden">
+    <div class="bg-white rounded-xl border border-border">
         <table class="w-full border-collapse">
 
             <thead class="bg-surface-2">
                 <tr>
-                    <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase">Order ID</th>
+                    <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase rounded-tl-xl">Order ID</th>
                     <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase">Tanggal</th>
                     <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase">Produk</th>
                     <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase">Total Harga</th>
                     <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase">Status Pesanan</th>
-                    <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase">ID Pelanggan</th>
+                    <th class="px-4 py-3 text-left text-[12px] font-bold text-text-subtle uppercase rounded-tr-xl">Customer</th>
                 </tr>
             </thead>
 
             <tbody>
                 @forelse($orders ?? [] as $order)
-                    @php $status = strtolower($order->status); @endphp
-                    @forelse($order->products as $product)
-                        <tr class="border-b border-border hover:bg-surface-2">
-                            <td class="px-4 py-3 text-[13px] font-bold text-text">
-                                {{ $order->id }}
-                            </td>
+                @php $status = strtolower($order->status); @endphp
+                @forelse($order->products as $product)
+                <tr class="border-b border-border hover:bg-surface-2">
+                    <td class="px-4 py-3 text-[13px] font-bold text-text">
+                        {{ $order->id }}
+                    </td>
 
-                            <td class="px-4 py-3 text-[13px] text-text-muted">
-                                {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('d M Y') }}
-                            </td>
+                    <td class="px-4 py-3 text-[13px] text-text-muted">
+                        {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('d M Y') }}
+                    </td>
 
-                            <td class="px-4 py-3 text-[13px] text-text-muted">
-                                {{ $product->name }} - {{ $product->pivot->total_order }} Pcs
-                            </td>
+                    <td class="px-4 py-3 text-[13px] text-text-muted">
+                        {{ $product->name }} - {{ $product->pivot->total_order }} Pcs
+                    </td>
 
-                            <td class="px-4 py-3 text-[13px] text-text-muted">
-                                Rp {{ number_format($product->pivot->total_price, 0, ',', '.') }}
-                            </td>
+                    <td class="px-4 py-3 text-[13px] text-text-muted">
+                        Rp {{ number_format($product->pivot->total_price, 0, ',', '.') }}
+                    </td>
 
-                            <td class="px-4 py-3">
-                                <div class="relative inline-block">
+                    <td class="px-4 py-3">
+                        <div class="relative inline-block">
 
-                                    <button
-                                        type="button"
-                                        data-status-toggle="statusDd-{{ $order->id }}"
-                                        class="inline-flex items-center gap-1.5"
-                                    >
-                                        <x-badge :variant="$status">{{ ucfirst($order->status) }}</x-badge>
-                                        <svg class="w-[10px] h-[10px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                            <polyline points="6,9 12,15 18,9" />
-                                        </svg>
-                                    </button>
+                            <button
+                                type="button"
+                                data-status-toggle="statusDd-{{ $order->id }}"
+                                class="inline-flex items-center gap-1.5">
+                                <x-badge :variant="$status">{{ ucfirst($order->status) }}</x-badge>
+                                <svg class="w-[10px] h-[10px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="6,9 12,15 18,9" />
+                                </svg>
+                            </button>
 
-                                    <div
-                                        id="statusDd-{{ $order->id }}"
-                                        class="hidden absolute left-0 top-[calc(100%+4px)] bg-white rounded-lg border border-border shadow-lg z-50 min-w-[160px]"
-                                    >
-                                        @foreach(['dikirim' => 'Dikirim', 'selesai' => 'Selesai', 'dikemas' => 'Dikemas', 'menunggu' => 'Menunggu Pembayaran'] as $val => $label)
-                                            <div
-                                                data-status-update="{{ $val }}"
-                                                data-order-id="{{ $order->id }}"
-                                                class="flex items-center gap-2 px-3.5 py-2 cursor-pointer hover:bg-surface-2"
-                                            >
-                                                <x-badge :variant="$val">{{ $label }}</x-badge>
-                                            </div>
-                                        @endforeach
-                                    </div>
-
+                            <div
+                                id="statusDd-{{ $order->id }}"
+                                class="hidden absolute left-0 top-[calc(100%+4px)] bg-white rounded-lg border border-border shadow-lg z-50 min-w-[160px]">
+                                @foreach(['dikirim' => 'Dikirim', 'selesai' => 'Selesai', 'dikemas' => 'Dikemas', 'menunggu' => 'Menunggu Pembayaran'] as $val => $label)
+                                <div
+                                    data-status-update="{{ $val }}"
+                                    data-order-id="{{ $order->id }}"
+                                    class="flex items-center gap-2 px-3.5 py-2 cursor-pointer hover:bg-surface-2">
+                                    <x-badge :variant="$val">{{ $label }}</x-badge>
                                 </div>
-                            </td>
+                                @endforeach
+                            </div>
 
-                            <td class="px-4 py-3 text-[13px] text-text-muted">
-                                {{ $order->user->name ?? 'U' . str_pad($order->user_id, 4, '0', STR_PAD_LEFT) }}
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="px-4 py-3 text-[13px] text-text-muted">
-                                Tidak ada produk
-                            </td>
-                        </tr>
-                    @endforelse
+                        </div>
+                    </td>
+
+                    <td class="px-4 py-3 text-[13px] text-text-muted">
+                        {{ $order->user->name ?? 'U' . str_pad($order->user_id, 4, '0', STR_PAD_LEFT) }}
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="text-center py-12 text-text-subtle text-[14px]">
-                            Belum ada pesanan.
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="px-4 py-3 text-[13px] text-text-muted">
+                        Tidak ada produk
+                    </td>
+                </tr>
+                @endforelse
+                @empty
+                <tr>
+                    <td colspan="6" class="text-center py-12 text-text-subtle text-[14px]">
+                        Belum ada pesanan.
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
 

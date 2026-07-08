@@ -56,11 +56,12 @@ class AdminController extends Controller
         $admin = Auth::user();
 
         $orders = Order::with('products', 'user')
-            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('status'), fn($q) => $q->where('status', $request->status))
+            ->when($request->filled('date'), fn($q) => $q->whereDate('created_at', $request->date))
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where(function ($q) use ($request) {
-                    $q->where('id', 'like', '%'.$request->search.'%')
-                        ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+                    $q->where('id', 'like', '%' . $request->search . '%')
+                        ->orWhereHas('products', fn($sq) => $sq->where('name', 'like', '%' . $request->search . '%'));
                 });
             })
             ->latest()->get();
@@ -109,11 +110,11 @@ class AdminController extends Controller
         $totalCustomers = User::where('role', '!=', 'admin')->count();
 
         $recentOrders = Order::with('products', 'user')
-            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('status'), fn($q) => $q->where('status', $request->status))
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where(function ($q) use ($request) {
-                    $q->where('id', 'like', '%'.$request->search.'%')
-                        ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+                    $q->where('id', 'like', '%' . $request->search . '%')
+                        ->orWhereHas('products', fn($sq) => $sq->where('name', 'like', '%' . $request->search . '%'));
                 });
             })
             ->latest()->get();

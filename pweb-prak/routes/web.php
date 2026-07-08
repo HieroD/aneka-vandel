@@ -67,6 +67,7 @@ Route::middleware(['can:admin'])->group(function () {
 
     Route::get('/catalog/create', [ProductController::class, 'create'])->name('catalog.create');
     Route::post('/catalog', [ProductController::class, 'store'])->name('catalog.store');
+    Route::get('/catalog/pick', [ProductController::class, 'pick'])->name('catalog.pick');
     Route::get('/catalog/{product}/edit', [ProductController::class, 'edit'])->name('catalog.edit');
     Route::patch('/catalog/{product}', [ProductController::class, 'update'])->name('catalog.update');
     Route::delete('/catalog/{product}', [ProductController::class, 'destroy'])->name('catalog.destroy');
