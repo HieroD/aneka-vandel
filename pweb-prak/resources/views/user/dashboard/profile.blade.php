@@ -65,15 +65,17 @@
                 </form>
 
                 {{-- Foto Profil --}}
-                <div class="flex w-52 shrink-0 flex-col items-center gap-4">
-                    <p class="text-sm font-medium text-text">Foto Profil</p>
-                    <div class="avatar-circle">
+                <div class="w-52 shrink-0 text-center">
+                    <p class="mb-4 text-sm font-medium text-text">Foto Profil</p>
+
+                    <div class="mx-auto mb-4 flex h-[120px] w-[120px] items-center justify-center overflow-hidden rounded-full border-[3px] border-border bg-surface-2">
                         @if(auth()->user()->avatar ?? false)
                             <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="h-full w-full object-cover">
                         @else
-                            <div class="avatar-placeholder">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                            <div class="text-text-subtle">
+                                <svg class="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
                                 </svg>
                             </div>
                         @endif
@@ -89,10 +91,11 @@
                             accept="image/*"
                             onchange="this.form.submit()"
                         >
-                        <label for="avatar-input">
-                            <x-button variant="secondary" :type="'button'">Pilih Foto</x-button>
-                        </label>
                     </form>
+
+                    <x-button variant="secondary" onclick="document.getElementById('avatar-input').click()" class="cursor-pointer">
+                        Pilih Foto
+                    </x-button>
                 </div>
             </div>
         </main>
