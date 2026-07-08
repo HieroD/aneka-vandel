@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('category');
             $table->integer('price');
             $table->integer('total_product');
-            $table->string('img_path');
+            $table->string('img_path')->nullable();
             $table->timestamps();
         });
     }

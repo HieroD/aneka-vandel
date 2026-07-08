@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,6 +12,13 @@ class Order extends Model
     protected $guarded = [];
 
     protected $table = 'orders';
+
+    protected function totalPrice(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->products->sum(fn ($p) => $p->pivot->total_price)
+        );
+    }
 
     public function user(): BelongsTo
     {

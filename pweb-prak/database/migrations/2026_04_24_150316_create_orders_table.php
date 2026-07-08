@@ -16,6 +16,11 @@ return new class extends Migration
             $table->date('order_date')->nullable();
             $table->date('ship_date')->nullable();
             $table->date('completion_date')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('shipping_method')->nullable();
+            $table->unsignedInteger('shipping_cost')->nullable();
             $table->timestamps();
         });
     }
