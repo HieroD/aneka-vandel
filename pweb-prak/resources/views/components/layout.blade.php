@@ -37,7 +37,7 @@
                 @endauth
 
                 @guest
-                    <a href=" {{ route('login') }}"><button class="py-2 px-6.25 ml-3.75 rounded-full border-none cursor-pointer text-white font-normal text-[16px] bg-primary hover:bg-primary-hover transition-colors">Sign in</button></a>
+                    <a href="{{ route('login') }}" class="py-2 px-6.25 ml-3.75 rounded-full border-none cursor-pointer text-white font-normal text-[16px] bg-primary hover:bg-primary-hover transition-colors no-underline inline-block">Sign in</a>
                 @endguest
 
                 @auth()
@@ -63,5 +63,6 @@
         <p>© 2026 Aneka Vandel. All rights reserved</p>
     </footer>
 
+@stack('scripts')
 </body>
 </html>

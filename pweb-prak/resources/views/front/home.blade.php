@@ -19,18 +19,18 @@
             <h2 class="text-[60px] font-bold text-center mb-5">Our Collection</h2>
 
             <div class="w-full md:w-1/2 lg:w-5/12 h-7 mb-10 flex items-center justify-around gap-2">
-                <button class="text-[14px] cursor-pointer text-white font-bold border border-primary rounded-full bg-primary w-1/5 h-full transition duration-200 hover:bg-primary-hover">All</button>
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">Vandel</button>
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">Prasasti</button>
-                <button class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary">Kijangan</button>
+                <a href="{{ route('catalog.index', ['category' => 'all']) }}" class="text-[14px] cursor-pointer text-white font-bold border border-primary rounded-full bg-primary w-1/5 h-full transition duration-200 hover:bg-primary-hover flex items-center justify-center no-underline">All</a>
+                <a href="{{ route('catalog.index', ['category' => 'vandel']) }}" class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary flex items-center justify-center no-underline">Vandel</a>
+                <a href="{{ route('catalog.index', ['category' => 'prasasti']) }}" class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary flex items-center justify-center no-underline">Prasasti</a>
+                <a href="{{ route('catalog.index', ['category' => 'kijangan']) }}" class="text-[14px] cursor-pointer text-primary font-bold border border-primary rounded-full bg-white w-1/5 h-full transition duration-200 hover:text-white hover:bg-primary flex items-center justify-center no-underline">Kijangan</a>
             </div>
 
             <div class="w-full flex justify-center gap-7.5 flex-wrap mb-10">
                 @if(isset($products) && $products->count() > 0)
                 @foreach ($products as $product)
-                    <div class="w-[30%] min-w-62.5">
+                    <a href="{{ route('catalog.index') }}" class="w-[30%] min-w-62.5 no-underline">
                         <x-product-card :product="$product" />
-                    </div>
+                    </a>
                 @endforeach
                 @else
                 <p class="text-text italic">Belum ada produk yang tersedia.</p>
@@ -82,7 +82,7 @@
             <p class="text-text-muted text-[18px] mb-12.5">Kami siap membantu anda membuat vandel dan plakat terbaik</p>
             <nav class="flex justify-center gap-7.5 flex-wrap p-0">
 
-                <a href="#" class="no-underline flex-1 min-w-70 max-w-82.5 group">
+                <a href="mailto:{{ $adminEmail }}" class="no-underline flex-1 min-w-70 max-w-82.5 group">
                     <div class="bg-white rounded-[15px] py-10 px-7.5 h-full min-h-100 flex flex-col items-center justify-between shadow-card transition duration-300 group-hover:-translate-y-2.5 group-hover:shadow-card-hover border-[3px] border-info">
                         <div class="w-17.5 h-17.5 rounded-full bg-info-soft flex items-center justify-center -mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
@@ -95,7 +95,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="no-underline flex-1 min-w-70 max-w-82.5 group">
+                <a href="https://wa.me/{{ $adminWa }}" target="_blank" class="no-underline flex-1 min-w-70 max-w-82.5 group">
                     <div class="bg-white rounded-[15px] py-10 px-7.5 h-full min-h-100 flex flex-col items-center justify-between shadow-card transition duration-300 group-hover:-translate-y-2.5 group-hover:shadow-card-hover border-[3px] border-success">
                         <div class="w-17.5 h-17.5 rounded-full bg-success-soft flex items-center justify-center -mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-success" fill="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="no-underline flex-1 min-w-70 max-w-82.5 group">
+                <a href="tel:{{ $adminWa }}" class="no-underline flex-1 min-w-70 max-w-82.5 group">
                     <div class="bg-white rounded-[15px] py-10 px-7.5 h-full min-h-100 flex flex-col items-center justify-between shadow-card transition duration-300 group-hover:-translate-y-2.5 group-hover:shadow-card-hover border-[3px] border-warning">
                         <div class="w-17.5 h-17.5 rounded-full bg-warning-soft flex items-center justify-center -mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">

@@ -58,8 +58,10 @@ class AdminController extends Controller
         $orders = Order::with('products', 'user')
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
             ->when($request->filled('search'), function ($q) use ($request) {
-                $q->where('id', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+                $q->where(function ($q) use ($request) {
+                    $q->where('id', 'like', '%'.$request->search.'%')
+                        ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+                });
             })
             ->latest()->get();
 
@@ -109,8 +111,10 @@ class AdminController extends Controller
         $recentOrders = Order::with('products', 'user')
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
             ->when($request->filled('search'), function ($q) use ($request) {
-                $q->where('id', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+                $q->where(function ($q) use ($request) {
+                    $q->where('id', 'like', '%'.$request->search.'%')
+                        ->orWhereHas('products', fn ($sq) => $sq->where('name', 'like', '%'.$request->search.'%'));
+                });
             })
             ->latest()->get();
 

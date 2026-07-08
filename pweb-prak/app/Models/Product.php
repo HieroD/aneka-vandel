@@ -19,7 +19,7 @@ class Product extends Model
     {
         return Attribute::get(function () {
             if (! $this->img_path) {
-                return asset('assets/placeholder.png');
+                return 'data:image/svg+xml,'.rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" fill="#e2e8f0"><rect width="400" height="300"/><text x="200" y="150" text-anchor="middle" fill="#94a3b8" font-size="16" font-family="sans-serif">No Image</text></svg>');
             }
 
             if (str_starts_with($this->img_path, 'assets/')) {

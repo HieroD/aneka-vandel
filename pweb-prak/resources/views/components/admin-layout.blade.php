@@ -69,7 +69,7 @@
             <img src="{{ asset('assets/linkedin.png') }}" class="w-7 h-7 brightness-0 invert opacity-80">
             <img src="{{ asset('assets/facebook.png') }}" class="w-7 h-7 brightness-0 invert opacity-80">
             <img src="{{ asset('assets/instagram.png') }}" class="w-7 h-7 brightness-0 invert opacity-80">
-            <img src="{{ asset('assets/youtube.png') }}" class="w-7 h-7 brightness-0 invert opacity-80">
+            <svg class="w-7 h-7 brightness-0 invert opacity-80" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.1 3.1 0 00-2.2-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.3.5A3.1 3.1 0 00.5 6.2 33 33 0 000 12a33 33 0 00.5 5.8 3.1 3.1 0 002.2 2.2c1.8.5 9.3.5 9.3.5s7.5 0 9.3-.5a3.1 3.1 0 002.2-2.2 33 33 0 00.5-5.8 33 33 0 00-.5-5.8zM9.6 15.5V8.5l6.2 3.5z"/></svg>
         </div>
 
         <p class="text-xs opacity-70">© 2026 Aneka Vandel. All rights reserved</p>

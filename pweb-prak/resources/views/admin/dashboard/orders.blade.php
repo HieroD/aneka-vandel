@@ -16,21 +16,7 @@
                 class="flex-1 min-w-[200px] px-3.5 py-[9px] border border-border rounded-lg text-[13px] text-text-muted placeholder:text-text-subtle focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/40"
             />
 
-            <div class="flex items-center gap-2 px-3.5 py-[9px] border border-border rounded-lg bg-white text-[13px] text-text-muted cursor-pointer">
-                <svg class="w-[15px] h-[15px] text-text-subtle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                <select
-                    name="tanggal"
-                    onchange="document.getElementById('filterForm').submit()"
-                    class="bg-transparent outline-none text-[13px] cursor-pointer"
-                >
-                    <option value="">Pilih Tanggal</option>
-                </select>
-            </div>
+            
 
             <div class="w-56">
                 <x-select

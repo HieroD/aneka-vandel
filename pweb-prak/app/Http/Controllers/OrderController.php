@@ -32,6 +32,9 @@ class OrderController extends Controller
 
         $total_price = $validated['total_order'] * $product->price;
 
+        $shippingCosts = ['jne' => 25000, 'jt' => 30000, 'cargo' => 0];
+        $shipping_cost = $shippingCosts[$validated['pengiriman']] ?? 0;
+
         // transaction
         try {
             DB::beginTransaction();
@@ -51,6 +54,7 @@ class OrderController extends Controller
                 'whatsapp' => $validated['whatsapp'],
                 'alamat' => $validated['alamat'],
                 'shipping_method' => $validated['pengiriman'],
+                'shipping_cost' => $shipping_cost,
             ]);
 
             $order->products()->attach($lockedProduct->id, [

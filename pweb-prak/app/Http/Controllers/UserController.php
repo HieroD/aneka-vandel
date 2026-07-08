@@ -43,9 +43,10 @@ class UserController extends Controller
         Order::with('products')
             ->where('user_id', $user->id)
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
-            ->when($request->filled('search'), fn ($q) => $q
-                ->where('id', 'like', '%'.$request->search.'%')
-                ->orWhereHas('products', fn ($pq) => $pq->where('name', 'like', '%'.$request->search.'%')))
+            ->when($request->filled('search'), fn ($q) => $q->where(function ($q) use ($request) {
+                $q->where('id', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('products', fn ($pq) => $pq->where('name', 'like', '%'.$request->search.'%'));
+            }))
             ->latest()
             ->get();
 
