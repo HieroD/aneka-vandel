@@ -73,4 +73,5 @@ Route::middleware(['can:admin'])->group(function () {
     Route::delete('/catalog/{product}', [ProductController::class, 'destroy'])->name('catalog.destroy');
 
     Route::patch('/order/{order}', [OrderController::class, 'update'])->name('order.update');
+
 });
