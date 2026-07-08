@@ -18,9 +18,12 @@ class OrderController extends Controller
     public function store(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'total_order' => ['required', 'integer', 'min:1', 'max:' . $product->total_product],
+            'total_order' => ['required', 'integer', 'min:1', 'max:'.$product->total_product],
+            'nama' => ['required', 'string', 'max:255'],
+            'whatsapp' => ['required', 'string', 'max:20'],
+            'alamat' => ['required', 'string'],
+            'pengiriman' => ['required', 'in:jne,jt,cargo'],
         ]);
-
 
         $total_price = $validated['total_order'] * $product->price;
 
@@ -31,6 +34,10 @@ class OrderController extends Controller
             $order = Auth::user()->orders()->create([
                 'status' => 'menunggu',
                 'order_date' => now(),
+                'nama' => $validated['nama'],
+                'whatsapp' => $validated['whatsapp'],
+                'alamat' => $validated['alamat'],
+                'shipping_method' => $validated['pengiriman'],
             ]);
 
             $order->products()->attach($product->id, [

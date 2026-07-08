@@ -286,7 +286,7 @@
                 whatsapp,
                 alamat,
                 pengiriman: metode,
-                quantity:   qty,
+                total_order: qty,
             };
 
             for (const [k, v] of Object.entries(fields)) {

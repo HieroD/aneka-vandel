@@ -63,61 +63,69 @@
             </thead>
 
             <tbody>
-                @forelse($pesanans ?? [] as $pesanan)
-                    @php $status = strtolower($pesanan->status); @endphp
-                    <tr class="border-b border-border hover:bg-surface-2">
-                        <td class="px-4 py-3 text-[13px] font-bold text-text">
-                            {{ $pesanan->order_id }}
-                        </td>
+                @forelse($orders ?? [] as $order)
+                    @php $status = strtolower($order->status); @endphp
+                    @forelse($order->products as $product)
+                        <tr class="border-b border-border hover:bg-surface-2">
+                            <td class="px-4 py-3 text-[13px] font-bold text-text">
+                                {{ $order->id }}
+                            </td>
 
-                        <td class="px-4 py-3 text-[13px] text-text-muted">
-                            {{ \Carbon\Carbon::parse($pesanan->created_at)->translatedFormat('d M Y') }}
-                        </td>
+                            <td class="px-4 py-3 text-[13px] text-text-muted">
+                                {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('d M Y') }}
+                            </td>
 
-                        <td class="px-4 py-3 text-[13px] text-text-muted">
-                            {{ $pesanan->produk_nama }} - {{ $pesanan->qty }} Pcs
-                        </td>
+                            <td class="px-4 py-3 text-[13px] text-text-muted">
+                                {{ $product->name }} - {{ $product->pivot->total_order }} Pcs
+                            </td>
 
-                        <td class="px-4 py-3 text-[13px] text-text-muted">
-                            Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}
-                        </td>
+                            <td class="px-4 py-3 text-[13px] text-text-muted">
+                                Rp {{ number_format($product->pivot->total_price, 0, ',', '.') }}
+                            </td>
 
-                        <td class="px-4 py-3">
-                            <div class="relative inline-block">
+                            <td class="px-4 py-3">
+                                <div class="relative inline-block">
 
-                                <button
-                                    type="button"
-                                    data-status-toggle="statusDd-{{ $pesanan->id }}"
-                                    class="inline-flex items-center gap-1.5"
-                                >
-                                    <x-badge :variant="$status">{{ ucfirst($pesanan->status) }}</x-badge>
-                                    <svg class="w-[10px] h-[10px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                        <polyline points="6,9 12,15 18,9" />
-                                    </svg>
-                                </button>
+                                    <button
+                                        type="button"
+                                        data-status-toggle="statusDd-{{ $order->id }}"
+                                        class="inline-flex items-center gap-1.5"
+                                    >
+                                        <x-badge :variant="$status">{{ ucfirst($order->status) }}</x-badge>
+                                        <svg class="w-[10px] h-[10px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="6,9 12,15 18,9" />
+                                        </svg>
+                                    </button>
 
-                                <div
-                                    id="statusDd-{{ $pesanan->id }}"
-                                    class="hidden absolute left-0 top-[calc(100%+4px)] bg-white rounded-lg border border-border shadow-lg z-50 min-w-[160px]"
-                                >
-                                    @foreach(['dikirim' => 'Dikirim', 'selesai' => 'Selesai', 'dikemas' => 'Dikemas', 'menunggu' => 'Menunggu Pembayaran'] as $val => $label)
-                                        <div
-                                            data-status-update="{{ $val }}"
-                                            data-order-id="{{ $pesanan->id }}"
-                                            class="flex items-center gap-2 px-3.5 py-2 cursor-pointer hover:bg-surface-2"
-                                        >
-                                            <x-badge :variant="$val">{{ $label }}</x-badge>
-                                        </div>
-                                    @endforeach
+                                    <div
+                                        id="statusDd-{{ $order->id }}"
+                                        class="hidden absolute left-0 top-[calc(100%+4px)] bg-white rounded-lg border border-border shadow-lg z-50 min-w-[160px]"
+                                    >
+                                        @foreach(['dikirim' => 'Dikirim', 'selesai' => 'Selesai', 'dikemas' => 'Dikemas', 'menunggu' => 'Menunggu Pembayaran'] as $val => $label)
+                                            <div
+                                                data-status-update="{{ $val }}"
+                                                data-order-id="{{ $order->id }}"
+                                                class="flex items-center gap-2 px-3.5 py-2 cursor-pointer hover:bg-surface-2"
+                                            >
+                                                <x-badge :variant="$val">{{ $label }}</x-badge>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
                                 </div>
+                            </td>
 
-                            </div>
-                        </td>
-
-                        <td class="px-4 py-3 text-[13px] text-text-muted">
-                            {{ $pesanan->user_id ?? 'U' . str_pad($pesanan->user_id, 4, '0', STR_PAD_LEFT) }}
-                        </td>
-                    </tr>
+                            <td class="px-4 py-3 text-[13px] text-text-muted">
+                                {{ $order->user->name ?? 'U' . str_pad($order->user_id, 4, '0', STR_PAD_LEFT) }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-4 py-3 text-[13px] text-text-muted">
+                                Tidak ada produk
+                            </td>
+                        </tr>
+                    @endforelse
                 @empty
                     <tr>
                         <td colspan="6" class="text-center py-12 text-text-subtle text-[14px]">

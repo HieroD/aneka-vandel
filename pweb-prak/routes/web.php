@@ -18,7 +18,6 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::get('/catalog/category/{category?}', [ProductController::class, 'index'])->name('catalog.index');
-Route::get('/catalog/{product}', [ProductController::class, 'show'])->name('catalog.show');
 
 // Auth
 Route::middleware('guest')->group(function () {

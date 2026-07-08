@@ -35,7 +35,7 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
 
-        $orders = Order::with('products')->latest()->get();
+        $orders = Order::with('products', 'user')->latest()->get();
 
         return view('admin.dashboard.orders', compact('orders'));
     }
@@ -80,14 +80,14 @@ class AdminController extends Controller
         // total customers
         $totalCustomers = User::where('role', '!=', 'admin')->count();
 
-        $latestOrders = Order::with('products')->latest()->get();
+        $recentOrders = Order::with('products', 'user')->latest()->get();
 
         return view('admin.dashboard.statistic', compact(
             'salesTrend',
             'totalSales',
             'totalCustomers',
             'totalOrders',
-            'latestOrders',
+            'recentOrders',
         ));
     }
 }

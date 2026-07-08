@@ -8,20 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index($category = 'all')
+    public function index(Request $request, $category = 'all')
     {
-        if ($category === 'all') {
-            $products = Product::all();
-        } else {
-            $products = Product::where('category', $category)->get();
+        $query = Product::query();
+
+        if ($category !== 'all') {
+            $query->whereRaw('LOWER(category) = ?', [strtolower($category)]);
         }
 
-        return view('front.catalog.index', compact('products'));
-    }
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%'.$request->search.'%');
+        }
 
-    public function show(Product $product)
-    {
-        return view('front.catalog.show', compact('product'));
+        $products = $query->get();
+
+        return view('front.catalog.index', compact('products'));
     }
 
     public function create()

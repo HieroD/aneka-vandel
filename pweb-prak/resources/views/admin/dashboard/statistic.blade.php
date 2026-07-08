@@ -62,16 +62,21 @@
 
                 @php
                     $days = ['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY'];
-                    $heights = [40, 55, 50, 70, 90, 100, 45];
+                    $maxSale = max($salesTrend) ?: 1;
+                    $heights = collect($salesTrend)->map(fn ($v) => max(10, (int) ($v / $maxSale * 100)))->values();
                     $active = strtoupper(\Carbon\Carbon::now()->format('l'));
                 @endphp
 
                 @foreach($days as $i => $day)
                     <div class="flex flex-col items-center gap-1 flex-1">
                         <div
-                            class="w-full rounded-t-md cursor-pointer hover:opacity-80 {{ $day === $active ? 'bg-primary' : 'bg-info-soft' }}"
+                            class="w-full rounded-t-md cursor-pointer hover:opacity-80 relative {{ $day === $active ? 'bg-primary' : 'bg-info-soft' }}"
                             style="height: {{ $heights[$i] }}px;"
-                        ></div>
+                        >
+                            <span class="absolute -top-4 left-1/2 -translate-x-1/2 text-[9px] text-text-subtle whitespace-nowrap">
+                                Rp {{ number_format($salesTrend[$day] ?? 0, 0, ',', '.') }}
+                            </span>
+                        </div>
                         <span class="text-[10px] text-text-subtle uppercase font-medium">{{ $day }}</span>
                     </div>
                 @endforeach
@@ -143,23 +148,33 @@
             </thead>
 
             <tbody id="ordersTableBody">
-                @foreach($recentOrders ?? [] as $order)
+                @forelse($recentOrders ?? [] as $order)
                     @php $status = strtolower($order->status); @endphp
-                    <tr class="border-b hover:bg-surface-2">
-                        <td class="px-4 py-3 font-semibold text-info text-xs font-mono">{{ $order->order_id }}</td>
-                        <td class="px-4 py-3 text-[13px]">{{ \Carbon\Carbon::parse($order->tanggal)->format('d M Y') }}</td>
-                        <td class="px-4 py-3 text-[13px]">{{ $order->product_name }}</td>
-                        <td class="px-4 py-3 text-[13px]">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
-                        <td class="px-4 py-3">
-                            @if(in_array($status, ['menunggu', 'dikemas', 'dikirim', 'selesai']))
-                                <x-badge :variant="$status">{{ $order->status }}</x-badge>
-                            @else
-                                <x-badge>{{ $order->status }}</x-badge>
-                            @endif
-                        </td>
-                        <td class="px-4 py-3 text-xs text-text-subtle">{{ $order->customer_id }}</td>
+                    @forelse($order->products as $product)
+                        <tr class="border-b hover:bg-surface-2">
+                            <td class="px-4 py-3 font-semibold text-info text-xs font-mono">{{ $order->id }}</td>
+                            <td class="px-4 py-3 text-[13px]">{{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}</td>
+                            <td class="px-4 py-3 text-[13px]">{{ $product->name }}</td>
+                            <td class="px-4 py-3 text-[13px]">Rp {{ number_format($product->pivot->total_price, 0, ',', '.') }}</td>
+                            <td class="px-4 py-3">
+                                @if(in_array($status, ['menunggu', 'dikemas', 'dikirim', 'selesai']))
+                                    <x-badge :variant="$status">{{ $order->status }}</x-badge>
+                                @else
+                                    <x-badge>{{ $order->status }}</x-badge>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 text-xs text-text-subtle">{{ $order->user->name ?? $order->user_id }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-4 py-3 text-[13px] text-text-muted">Tidak ada produk</td>
+                        </tr>
+                    @endforelse
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-12 text-text-subtle text-[14px]">Belum ada penjualan.</td>
                     </tr>
-                @endforeach
+                @endforelse
             </tbody>
         </table>
     </div>
