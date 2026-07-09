@@ -7,7 +7,7 @@ set -e
 # Run migrations
 php artisan migrate --force
 
-php artisan db:seed
+php artisan db:seed --force
 
 # Clear cache
 php artisan optimize:clear
